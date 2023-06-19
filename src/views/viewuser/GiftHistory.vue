@@ -19,15 +19,15 @@
              src="https://www.eovietnam.com/wp-content/uploads/2020/11/h%E1%BB%99p-qu%C3%A0.png">
       </div>
     </div>
-    <div v-if="token" class="flex justify-end pt-4 pr-4">
+    <div v-if="token" class="fixed top-0 right-0 mt-5 pr-4">
       <div class="right-align">
         <SelfProfileCard/>
       </div>
     </div>
     <div class="flex h-full">
-      <div class="w-full p-10 pt-4">
+      <div class="w-full p-10 pt-36">
         <div class="mt-10">
-          <div class="absolute flex justify-end -mt-2 right-0 pr-44">
+          <div class="absolute flex justify-end mt-2 right-0 pr-44">
             <input id="search" v-model="searchGiftName"
                    class="border-2 border-green-700 w-96 pl-10 rounded-lg shadow focus:outline-none focus:shadow-outline text-gray-600 font-medium"
                    placeholder="Nhập tên món quà cần tìm" type="text"
@@ -39,9 +39,12 @@
           </div>
           <div class="h-16">
           </div>
+          <div v-if="!hasGiftExchange" class="text-lg font-bold text-green-800">
+            Bạn chưa đổi quà lần nào! Click vào đổi quà để được đổi quà nhé!
+          </div>
           <div class="flex">
-            <div v-if="myGiftExchange.length === 0" class="w-full h-full flex justify-center items-center">
-              <div class="text-lg font-bold">
+            <div v-if="myGiftExchange.length === 0 && hasGiftExchange" class="w-full h-full flex justify-center items-center">
+              <div class="text-lg font-bold text-green-800">
                 Không có data!
               </div>
             </div>
@@ -52,7 +55,7 @@
                   <div class="h-40 2xl:h-56 image-fit">
                     <img alt="Midone Tailwind HTML Admin Template" class="rounded-md" :src="item?.gift?.img"/>
                   </div>
-                  <p class="block font-medium text-base mt-5 text-center">{{ item?.gift?.name }}</p>
+                  <p class="block font-medium text-2xl mt-5 text-center text-orange-800">{{ item?.gift?.name }}</p>
                 </div>
                 <div class="flex items-center px-5 py-3 border-t border-slate-200/60 dark:border-darkmode-400">
                   <p class="font-medium text-center">Những người đổi gần đây:</p>
@@ -132,7 +135,8 @@ export default {
       isModalConfirmOpen: false,
       dataDetail: {},
       status: null,
-      searchGiftName: ""
+      searchGiftName: "",
+      hasGiftExchange: false
     }
   },
   beforeDestroy() {
@@ -149,6 +153,11 @@ export default {
       const res = await GiftsExchange.giftExchangeHistoryMe(this.uid)
       this.myGiftExchange = res.data.data
       this.$store.dispatch("point/fetchSelfPointInfo")
+      if (this.myGiftExchange.length === 0) {
+        this.hasGiftExchange = false;
+      } else {
+        this.hasGiftExchange = true;
+      }
     },
     openModalConfirm(item, status) {
       this.isModalConfirmOpen = true

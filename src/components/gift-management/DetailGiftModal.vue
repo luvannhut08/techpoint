@@ -101,8 +101,6 @@
                           </button>
                         </div>
                         <div class="invalid-feedback font-sans font-medium text-center" v-for="(item, index) in errorImages" v-bind:key="index">{{ item }}</div>
-                        <Error :hidden="!errors.img&&!errors.size"
-                               :message="errors.img || errors.size"/>
                       </div>
                     </label>
 
