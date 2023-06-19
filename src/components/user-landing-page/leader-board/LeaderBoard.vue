@@ -2,7 +2,7 @@
   <div v-if="isDataEmpty" class="h-full w-full flex justify-center items-center bg-[#354259CC] rounded-xl p-8">
     <h3 class="text-white text-3xl font-bold">Không có dữ liệu!</h3>
   </div>
-  <div v-else class="h-full w-full bg-[#354259CC] rounded-xl p-8">
+  <div v-else class="h-[80vh] w-full bg-[#354259CC] rounded-xl p-8 overflow-y-scroll scroll-view">
       <div class="flex items-end justify-center mb-4">
           <img src="../../../assets/icons/party-popper.png" alt="" class="w-20 aspect-square">
           <div class="text-5xl text-center font-[800] text-white">LEADER BOARD</div>
@@ -20,7 +20,7 @@
               <OnTopAvatar :data="top3" profile-url="" />
           </div>
       </div>
-      <div class="flex flex-col mt-20 gap-4">
+      <div class="flex flex-col mt-20 gap-4 ">
           <RankRow v-for="data in othersTop" :data="data" profile-url="" />
       </div>
   </div>

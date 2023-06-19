@@ -156,7 +156,7 @@ export default {
       if(this.gift.quantity < this.quantity){
         this.onClose()
         await Swal.fire({
-          title: `<span style="font-weight: normal">Rất tiếc, số lượng món quà không đủ bạn chỉ có thể đổi tối đa</span> <b>${this.gift.quantity}</b> <span style="font-weight: normal">món quà</span> <b>${this.gift.name}</b><span> </span>`,
+          title: `<span style="font-weight: normal">Rất tiếc<br> Số quà còn lại không đủ</span> <br> <span style="font-weight: normal">Vui lòng đổi tối đa</span> <b class="text-red-400">${this.gift.quantity}</b> <b>${this.gift.name}</b><span> </span>`,
           timerProgressBar: true,
           icon: "error",
           didOpen: () => {
@@ -167,7 +167,7 @@ export default {
       }else if(this.totalOfPoint < this.point) {
         this.onClose()
         await Swal.fire({
-          title: `<span style="font-weight: normal">Rất tiếc, số điểm của bạn không đủ để đổi</span> <b>${this.quantity}</b> <span style="font-weight: normal">món quà</span> <b>${this.gift.name}</b><span> </span>`,
+          title: `<span class="text-sm" style="font-weight: normal">Rất tiếc, số điểm của bạn không đủ để đổi</span> <b class="text-red-400">${this.quantity}</b> <b>${this.gift.name}</b><span> </span>`,
           timerProgressBar: true,
           icon: "error",
           didOpen: () => {
@@ -190,7 +190,7 @@ export default {
         this.onClose()
         if(res.status == 200) {
           await Swal.fire({
-            title: `<span style="font-weight: normal">Gửi yêu cầu đổi quà thành công</span> <b>${this.quantity}</b> <span style="font-weight: normal">món quà</span> <b>${this.gift.name}</b><span>`,
+            title: `<span style="font-weight: normal">Gửi yêu cầu đổi</span> <b>${this.quantity}</b> <b>${this.gift.name}</b> thành công<span>`,
             timerProgressBar: true,
             icon: "success",
             didOpen: () => {

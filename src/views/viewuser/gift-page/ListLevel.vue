@@ -3,12 +3,13 @@
     <img :class="{'-mt-28 w-96 h-44': token, 'w-96 h-44': !token}"
     src="/src/assets/images/point.gif"/>
   </div>
-  <FilterByScore class="-mt-7"/>
+  <FilterByScore class="-mt-2"/>
   <div class="mt-10">
     <div class="relative">
       <div class="flex justify-center mt-4 absolute previous-next gap-52 z-10">
         <button :disabled="currentPagePrimary === 1"
-                class="px-3 py-1 bg-blue-500 hover:bg-blue-950 text-white rounded-md mr-2 transform -translate-x-1/2 cursor-pointer"
+                class="px-3 py-1 bg-blue-500 hover:bg-blue-950 text-white rounded-md mr-2 transform -translate-x-1/2"
+                :class="{'cursor-not-allowed': currentPagePrimary === 1}"
                 @click="prevPagePrimary">
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5}
                stroke="currentColor" class="w-5 h-5">
@@ -17,7 +18,8 @@
 
         </button>
         <button :disabled="currentPagePrimary === totalPagePrimary"
-                class="px-3 py-1 bg-blue-500 hover:bg-blue-950 text-white rounded-md next-button transform -translate-x-1/2 "
+                class="px-3 py-1 bg-blue-500 hover:bg-blue-950 text-white rounded-md next-button transform -translate-x-1/2"
+                :class="{'cursor-not-allowed': currentPagePrimary === totalPagePrimary}"
                 @click="nextPagePrimary">
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" StrokeWidth={1.5}
                stroke="currentColor" class="w-5 h-5">
@@ -34,7 +36,8 @@
     <div class="relative">
       <div class="flex justify-center mt-4 absolute previous-next gap-52 z-10">
         <button :disabled="currentPageSecondary === 1"
-                class="px-3 py-1 bg-blue-500 hover:bg-blue-950 text-white rounded-md mr-2 transform -translate-x-1/2 cursor-pointer"
+                class="px-3 py-1 bg-blue-500 hover:bg-blue-950 text-white rounded-md mr-2 transform -translate-x-1/2"
+                :class="{'cursor-not-allowed': currentPageSecondary === 1}"
                 @click="prevPageSecondary">
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5}
                stroke="currentColor" class="w-5 h-5">
@@ -43,6 +46,7 @@
         </button>
         <button :disabled="currentPageSecondary === totalPageSecondary"
                 class="px-3 py-1 bg-blue-500 hover:bg-blue-950 text-white rounded-md next-button transform -translate-x-1/2"
+                :class="{'cursor-not-allowed': currentPageSecondary === totalPageSecondary}"
                 @click="nextPageSecondary">
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" StrokeWidth={1.5}
                stroke="currentColor" class="w-5 h-5">
@@ -58,15 +62,16 @@
     </div>
     <div class="relative">
       <div class="flex justify-center mt-4 absolute previous-next gap-52 z-10">
-        <button :disabled="currentPageSecondary === 1"
-                class="px-3 py-1 bg-blue-500 hover:bg-blue-950 text-white rounded-md mr-2 transform -translate-x-1/2 cursor-pointer"
+        <button :disabled="currentPageHighSchool === 1"
+                class="px-3 py-1 bg-blue-500 hover:bg-blue-950 text-white rounded-md mr-2 transform -translate-x-1/2"
+                :class="{'cursor-not-allowed': currentPageHighSchool === 1}"
                 @click="prevPageSecondary">
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5}
                stroke="currentColor" class="w-5 h-5">
             <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 12h-15m0 0l6.75 6.75M4.5 12l6.75-6.75"/>
           </svg>
         </button>
-        <button :disabled="currentPageSecondary === totalPageSecondary"
+        <button :disabled="currentPageHighSchool === totalPageHighSchool"
                 class="px-3 py-1 bg-blue-500 hover:bg-blue-950 text-white rounded-md next-button transform -translate-x-1/2"
                 @click="nextPageSecondary">
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" StrokeWidth={1.5}
@@ -75,17 +80,12 @@
           </svg>
         </button>
       </div>
-     <div v-if="newListPointsHighSchool <= 0" class="relative">
-       <Block :numbers="paginatedBlocksHighSchool" title="Cấp độ cấp ba"/>
-       <img class="w-32 h-20 absolute -mt-48 ml-3" src="/src/assets/images/student1.png"/>
-       <img class="w-32 h-20 absolute -mt-48 ml-52" src="/src/assets/images/student2.png"/>
+     <div class="relative">
+       <Block :numbers="paginatedBlocksHighSchool" title="Cấp độ cấp ba" @add-to-block="addElementToBlock" @remove-to-block="removeElementToBlock">
+         <img class="w-32 h-20 absolute -mt-16 z-10" src="/src/assets/images/student1.png"/>
+         <img class="w-32 h-20 absolute -mt-16 ml-48 z-10" src="/src/assets/images/student2.png"/>
+       </Block>
      </div>
-      <div v-else class="relative">
-        <Block :numbers="paginatedBlocksHighSchool" @add-to-block="addElementToBlock"
-             @remove-to-block="removeElementToBlock" title="Cấp độ cấp ba"/>
-        <img class="w-32 h-20 absolute -mt-80 ml-3" src="/src/assets/images/student1.png"/>
-        <img class="w-32 h-20 absolute -mt-80 ml-52" src="/src/assets/images/student2.png"/>
-      </div>
     </div>
   </div>
 </template>
@@ -110,7 +110,7 @@ export default {
       itemsPerPage: 15,
       newListPointsPrimary: [],
       newListPointsSecondary: [],
-      newListPointsHighSchool: [],
+      newListPointsHighSchool: []
     };
   },
   created() {

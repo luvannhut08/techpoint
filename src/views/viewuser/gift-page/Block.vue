@@ -3,7 +3,7 @@
     <slot></slot>
     <h2 class="absolute rounded-xl text-xl font-bold mb-4 -mt-11 bg-blue-200 ml-20 cursor-pointer transition-transform transform hover:scale-110 px-4 py-2">{{ title }}</h2>
     <div class="grid grid-cols-5 gap-2 text-white mt-2">
-      <div v-for="(number, index) in points" :key="number" :class="getPointClass(number)" class="p-2 text-center w-16 rounded-xl mt-2 cursor-pointer"
+      <div v-for="(number, index) in points" :key="number" class="bg-blue-400 p-2 text-center w-16 rounded-xl mt-2 cursor-pointer"
            @click="togglePoint(number)">{{ number }}
       </div>
     </div>
@@ -37,12 +37,13 @@ export default {
   },
   watch: {
     getDeletePoint(value) {
-      this.$emit('add-to-block', value[0]);
-      if (this.isSelected(value[0])) {
-        this.selectedPoints = this.selectedPoints.filter(selected => selected !== value[0])
-      } else {
-        this.selectedPoints.push(value[0])
+      if(value.length > 1) {
+        value.map(item => {
+          this.$emit('add-to-block', item);
+        })
       }
+      this.$emit('add-to-block', value[0]);
+        this.selectedPoints.push(value[0])
       if (this.selectedPoints.includes(value[0])) {
         this.selectedPoints = this.selectedPoints.filter(selected => selected !== value[0])
       }
@@ -88,11 +89,7 @@ export default {
         }
         this.updateDeleteSearchBlock(objPoint)
       }
-      if (!this.isSelected(number)) {
-        this.selectedPoints = this.selectedPoints.filter(selected => selected !== number)
-      } else {
-        this.selectedPoints.push(number)
-      }
+      this.selectedPoints.push(number)
       if (this.flagPoint == number) {
         const objPoint = {
           point: number
@@ -107,15 +104,6 @@ export default {
       }
       this.flagPoint = number
     },
-    isSelected(number) {
-      return this.selectedPoints.includes(number)
-    },
-    getPointClass(number) {
-      return {
-        "bg-blue-900": this.isSelected(number),
-        "bg-blue-400": !this.isSelected(number)
-      }
-    }
   }
 }
 </script>

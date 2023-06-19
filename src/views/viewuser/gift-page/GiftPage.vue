@@ -23,8 +23,8 @@
       </div>
     </div>
     <div class="flex h-full">
-      <div v-if="listGift.length === 0" class="w-full h-full flex justify-center items-center">
-        <div class="text-lg font-bold">Không có data!</div>
+      <div v-if="listGift.length === 0" class="w-full h-full flex justify-center items-center mt-40">
+        <div class="text-lg font-bold">Không có dữ liệu trùng khớp!</div>
       </div>
       <GiftBoard v-else :gift-list="listGift" />
     </div>
@@ -78,9 +78,16 @@ export default {
       }
     },
     getDeletePoint(value) {
-      this.searchPoint = this.searchPoint.filter(item => item !== value[0])
-      this.renderList()
-      this.flagSearch = 2
+      console.log(value)
+      if(typeof value == "object" && value.length >=   1) {
+        this.listGift = this.giftList
+        this.searchPoint = []
+      }
+      else {
+        this.searchPoint = this.searchPoint.filter(item => item !== value[0])
+        this.renderList()
+        this.flagSearch = 2
+      }
     }
   },
   methods: {

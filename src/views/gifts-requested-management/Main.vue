@@ -31,7 +31,7 @@
         <td class="text-center">
           <button v-if="item.status === 0" class="bg-orange-400 w-20 h-8 rounded-md"
                   @click="openModalConfirm(item.id, item.gift?.name)">
-            Trao quà
+            Gửi quà
           </button>
           <i class="fa-regular fa-circle-check fa-2xl" style="color: #23da16;" v-if="item.status === 1"></i>
           <i class="fa-regular fa-circle-xmark fa-2xl" style="color: #f20d0d;" v-if="item.status === 2"></i>
@@ -133,7 +133,7 @@ export default {
 
 <style scoped>
 thead {
-    background-image: url("src/assets/images/resquested-head.jpg");
+    background-image: url("/src/assets/images/resquested-head.jpg");
     background-position: center; /* Center the image */
     background-repeat: no-repeat; /* Do not repeat the image */
     background-size: cover;
@@ -141,7 +141,7 @@ thead {
 }
 
 tbody {
-    background-image: url("src/assets/images/table-back.jpg");
+    background-image: url("/src/assets/images/table-back.jpg");
     background-position: center; /* Center the image */
     background-repeat: no-repeat; /* Do not repeat the image */
     background-size: cover;

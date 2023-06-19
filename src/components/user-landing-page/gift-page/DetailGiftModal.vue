@@ -50,9 +50,10 @@
                                             <div class="mb-4">
                                                 <label class="text-lg leading-6 font-medium text-orange-700"
                                                        for="gift-description">Mô tả chi tiết</label>
-                                                <textarea id="gift-description" v-model="gift.description"
-                                                          class=" mt-2 custom-textarea border-none bg-transparent w-96 h-72 decoration-orange-800 focus:ring-orange-200 leading-tight overflow-y-scroll scroll-view"
-                                                          readonly></textarea>
+                                              <textarea id="gift-description"
+                                                        v-model="gift.description"
+                                                        class="mt-2 custom-textarea border-none bg-transparent w-96 h-72 leading-tight overflow-y-scroll scroll-view pointer-events-none border-transparent focus:outline-none"
+                                                        readonly></textarea>
                                             </div>
                                         </div>
                                     </div>

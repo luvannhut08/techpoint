@@ -47,8 +47,8 @@
                                                 @click="getTextForBreadCrumb(subMenu.title), linkTo(subMenu, router, $event)"
                                                 v-if="!parseInt(usertype) || !subMenu.id || menus.includes(subMenu.id)"
                                             >
-                                                <div class="side-menu__icon">
-                                                    <component :is="subMenu.icon" />
+                                                <div class="side-menu__icon pl-2">
+                                                    <component :is="subMenu.icon"  class="h-5"/>
                                                 </div>
                                                 <div class="side-menu__title">
                                                     {{ $t(subMenu.title) }}
@@ -84,8 +84,8 @@
                                                             @click="getTextForBreadCrumb(lastSubMenu.title), linkTo(lastSubMenu, router, $event)"
                                                             v-if="!parseInt(usertype) || !lastSubMenu.id || menus.includes(lastSubMenu.id)"
                                                         >
-                                                            <div class="side-menu__icon">
-                                                                <component :is="lastSubMenu.icon" />
+                                                            <div class="side-menu__icon  pl-10">
+                                                                <component :is="lastSubMenu.icon" class="h-4"/>
                                                             </div>
                                                             <div class="side-menu__title">
                                                                 {{ $t(lastSubMenu.title) }}

@@ -149,7 +149,7 @@ export default {
 
 <style scoped>
 thead {
-    background-image: url("src/assets/images/resquested-head.jpg");
+    background-image: url("/src/assets/images/resquested-head.jpg");
     background-position: center; /* Center the image */
     background-repeat: no-repeat; /* Do not repeat the image */
     background-size: cover;
@@ -157,7 +157,7 @@ thead {
 }
 
 tbody {
-    background-image: url("src/assets/images/points-requested-back.jpg");
+    background-image: url("/src/assets/images/points-requested-back.jpg");
     background-position: center; /* Center the image */
     background-repeat: no-repeat; /* Do not repeat the image */
     background-size: cover;

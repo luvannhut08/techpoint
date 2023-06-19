@@ -67,6 +67,7 @@
                                         class="mr-9 v-text-field font-medium bg-transparent border-none focus:border-orange-500 decoration-orange-800 focus:ring focus:ring-orange-200 w-full text-gray-700 py-1 px-2 leading-tight focus:outline-none"
                                         required
                                         type="number"
+                                        min="0"
                                     />
                                 </div>
                                 <div class="mt-4 flex">

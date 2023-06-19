@@ -1,8 +1,8 @@
 <template>
   <div class="relative">
     <div class="bg-white flex">
-      <div class="flex scroll-item items-center gap-2 pl-2" ref="scrollContainer"
-           :class="{'overflow-x-scroll width-scroll': newArraySearch.length > 2}">
+      <div class="flex scroll-item items-center gap-2 pl-2" @mouseover="showScroll" @mouseout="hideScroll" ref="scrollContainer"
+           :class="{'overflow-x-scroll width-scroll': newArraySearch.length > 3}">
         <div class="text-white select-point" v-for="(item,index) in newArraySearch" :key="item">
           <div class="bg-blue-400 pl-2 py-1 text-center flex items-center rounded-md gap-2 text-size">
             <span>{{ item }}</span>
@@ -10,9 +10,11 @@
           </div>
         </div>
       </div>
-      <input type="number" v-model="dataSearch" class="w-full input-no-spinner pr-2" placeholder="Tìm kiếm điểm"
+      <input type="number" ref="inputSearchPoint" v-model="dataSearch" class="w-full input-no-spinner pr-2" :placeholder="newArraySearch.length > 0 ? '' : 'Tìm kiếm điểm' "
              @keyup.enter="performAction">
-      <div class="icon-search w-1/3"></div>
+      <div v-if="newArraySearch.length <= 0" class="icon-search w-1/3" @click="performAction"></div>
+      <div v-else class="flex items-center justify-center pr-2" @click="clearAllNumberFilter"><XIcon class=""/></div>
+
     </div>
   </div>
 </template>
@@ -39,6 +41,7 @@ export default {
     getPointSelected(newValue) {
       this.updateSearchByPoint(newValue)
       if (newValue != null) {
+        this.$refs.inputSearchPoint.focus()
         if (typeof newValue == "object") {
           const foundElement = this.newArraySearch.findIndex(element => element === newValue.point)
           if (foundElement !== -1) {
@@ -62,6 +65,7 @@ export default {
       }
     },
     getDeleteSearchBlock(index) {
+      this.$refs.inputSearchPoint.focus()
       if(typeof index == "object") {
         this.newArraySearch = this.newArraySearch.filter(item => item !== index.point)
       }else {
@@ -78,11 +82,19 @@ export default {
   methods: {
     ...mapActions('filterPoint', ['updatePointSelected', 'updateSearchByPoint', 'updateDeletePoint']),
     clearNumberFilterInput(index) {
+      this.$refs.inputSearchPoint.focus()
       const deletePoint = this.newArraySearch.splice(index, 1)
       this.updateDeletePoint(deletePoint)
     },
-    clearNumberFilter() {
-      this.updatePointSelected(null)
+    clearAllNumberFilter() {
+      this.$refs.inputSearchPoint.focus()
+      if(this.newArraySearch.length > 0){
+        this.updateDeletePoint(this.newArraySearch);
+        this.newArraySearch = []
+      }
+      else {
+        return
+      }
     },
     performAction() {
       if(this.dataSearch == "") {
@@ -107,6 +119,12 @@ export default {
         const scrollContainer = this.$refs.scrollContainer
         scrollContainer.scrollLeft = scrollContainer.scrollWidth
       })
+    },
+    showScroll() {
+      this.$refs.scrollContainer.classList.add('scroll-height')
+    },
+    hideScroll() {
+      this.$refs.scrollContainer.classList.remove('scroll-height')
     }
   }
 }
@@ -138,12 +156,20 @@ export default {
     padding: 10px;
 }
 
+.input-no-spinner:focus {
+    outline: none !important;
+    outline: 0 !important;
+    outline: transparent !important;
+    box-shadow: none !important;
+    border-color: transparent !important;
+}
+
 .scroll-item {
-    max-width: 111px;
+    max-width: 210px;
 }
 
 .width-scroll {
-  min-width: 111px;
+  min-width: 210px;
 }
 
 .text-size {
@@ -153,6 +179,11 @@ export default {
 
 .scroll-item::-webkit-scrollbar {
   width: 10px;
+  height: 0px;
+
+}
+
+.scroll-height::-webkit-scrollbar {
   height: 8px;
 }
 

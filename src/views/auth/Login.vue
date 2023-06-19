@@ -97,7 +97,7 @@ export default {
     },
     data() {
         const schema = Yup.object().shape({
-            email: Yup.string().required(this.$t('lang.LOGIN.LG5')).email(this.$t('lang.LOGIN.LG7.')),
+            email: Yup.string().required(this.$t('lang.LOGIN.LG5')).email(this.$t('lang.LOGIN.LG7')),
             password: Yup.string().required(this.$t('lang.LOGIN.main3'))
         })
 

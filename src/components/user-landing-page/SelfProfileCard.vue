@@ -19,47 +19,80 @@
                     <b>Top {{ selfPointInfo.rank }}</b><br />
                 </div>
             </div>
-            <img :src="avatarUrl" alt="" class="w-16 aspect-square rounded-full object-cover ring-2 ring-[#354259] cursor-pointer" @click="toggleLogout" />
+            <img
+              :src="avatarUrl"
+              alt=""
+              class="w-16 aspect-square rounded-full object-cover ring-2 ring-[#354259] cursor-pointer"
+              @click="toggleLogout"
+            />
+            <img
+              v-if="isTop1 || isTop2 || isTop3"
+              :src="getIconUrl(selfPointInfo.rank)"
+              alt=""
+              class="h-9 w-12 absolute -top-1 right-10"
+            />
         </div>
         <img v-if="showLogout" @click="handleLogout" class="ml-32 w-36 cursor-pointer transition-transform transform hover:scale-110" src="/src/assets/images/logout.png" />
-
     </div>
 </template>
+
 <script>
-import {mapActions, mapGetters} from "vuex";
+import { mapActions, mapGetters } from "vuex";
 
 export default {
     name: "SelfProfileCard",
     data() {
         return {
             showLogout: false,
-        }
+        };
     },
     computed: {
         ...mapGetters({
             selfPointInfo: "point/getSelfPointInfo",
             username: "auth/username",
-            avatarUrl: "auth/avatarUrl"
+            avatarUrl: "auth/avatarUrl",
         }),
 
         userPoint() {
             return this.getPoint;
-        }
+        },
+
+        isTop1() {
+            return this.selfPointInfo.rank === 1;
+        },
+        isTop2() {
+            return this.selfPointInfo.rank === 2;
+        },
+        isTop3() {
+            return this.selfPointInfo.rank === 3;
+        },
     },
     methods: {
         filterGifts() {
-            this.$emit('filter-gifts', this.selfPointInfo.totalOfPoint);
+            this.$emit("filter-gifts", this.selfPointInfo.totalOfPoint);
         },
         handleLogout() {
             const isLogout = this.logout();
-            this.$router.push('/login');
+            this.$router.push("/login");
         },
         toggleLogout() {
-            this.showLogout = !this.showLogout; // Đảo ngược giá trị của biến để ẩn/hiển thị hình ảnh logout
+            this.showLogout = !this.showLogout;
         },
-        ...mapActions('auth', ['logout']),
-    }
-}
+        ...mapActions("auth", ["logout"]),
+
+        getIconUrl(rank) {
+            if (rank === 1) {
+                return "/src/assets/images/cup1.png";
+            } else if (rank === 2) {
+                return "/src/assets/images/cup2.png";
+            } else if (rank === 3) {
+                return "/src/assets/images/cup3.png";
+            } else {
+                return "";
+            }
+        },
+    },
+};
 </script>
 
 <style scoped></style>

@@ -60,7 +60,7 @@ export default {
       searchTerm: ""
     }
   },
-  async created() {
+  created() {
     this.$store.dispatch("criteriaGroup/fetchCriteriaGroupList")
     this.$store.dispatch("users/fetchUsers")
     this.$store.dispatch("point/fetchSelfPointInfo")
@@ -87,9 +87,9 @@ export default {
     document.body.classList.remove('page-home')
   },
   mounted() {
+    document.body.classList.add('page-home')
     document.body.classList.remove('login')
     document.body.classList.remove('main')
-    document.body.classList.add('page-home')
   },
   methods: {
     updateMinValue(totalOfPoint) {

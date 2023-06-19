@@ -5,10 +5,7 @@
         <source srcset="https://fonts.gstatic.com/s/e/notoemoji/latest/1f914/512.webp" type="image/webp">
         <img src="/src/assets/images/consider.gif" alt="🤔" width="60" height="60">
       </picture>
-      <div class="text-3xl mt-5">Bạn có chắc</div>
-      <div class="text-slate-500 mt-2">
-        Đổi quà cho nhân viên này?
-      </div>
+      <div class="text-3xl mt-5">Xác nhận đã gửi quà</div>
     </div>
     <div class="px-5 pb-8 text-center">
       <button
@@ -18,7 +15,7 @@
       >
         Hủy
       </button>
-      <button type="button" class="btn bg-orange-400 text-white w-24" @click="approveRequest">Trao quà</button>
+      <button type="button" class="btn bg-orange-400 text-white w-24" @click="approveRequest">OK</button>
     </div>
   </Modal>
 </template>

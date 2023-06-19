@@ -39,8 +39,8 @@
           </div>
           <div class="h-16">
           </div>
-          <div v-if="!hasGiftExchange" class="text-lg font-bold text-green-800">
-            Bạn chưa đổi quà lần nào! Click vào đổi quà để được đổi quà nhé!
+          <div v-if="!hasGiftExchange" class="text-lg font-bold text-center mt-20">
+            Chưa có lịch sử đổi quà.!
           </div>
           <div class="flex">
             <div v-if="myGiftExchange.length === 0 && hasGiftExchange" class="w-full h-full flex justify-center items-center">

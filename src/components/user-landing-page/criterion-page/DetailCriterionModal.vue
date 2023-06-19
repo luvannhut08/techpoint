@@ -48,6 +48,7 @@
                       v-model="criterion.name"
                       class="mr-9 v-text-field font-medium bg-transparent border-none focus:border-orange-500 decoration-orange-800 focus:ring focus:ring-orange-200 w-full text-gray-700 py-1 px-2 leading-tight focus:outline-none"
                       type="text"
+                      disabled="disabled"
                   />
                 </div>
                 <div class="flex mt-4 items-end">
@@ -62,6 +63,7 @@
                       v-model="criterion.point"
                       class="mr-9 v-text-field font-medium bg-transparent border-none focus:border-orange-500 decoration-orange-800 focus:ring focus:ring-orange-200 w-full text-gray-700 py-1 px-2 leading-tight focus:outline-none"
                       type="number"
+                      disabled="disabled"
                   />
                 </div>
                 <div class="mt-4 flex">
@@ -73,16 +75,17 @@
                       Mô tả chi tiết
                     </label>
                     <textarea
+                        disabled="disabled"
                         id="criterion-description"
                         v-model="criterion.description"
-                        class="custom-textarea ml-4 text-justify mt-4 bg-transparent w-11/12 h-72 focus:ring-orange-200 leading-tight rounded border border-gray-400 overflow-y-scroll scroll-view"
+                        class="ml-4  custom-textarea border-none bg-transparent w-96 h-72 leading-tight overflow-y-scroll scroll-view pointer-events-none border-transparent focus:outline-none"
                     ></textarea>
                   </div>
                   <div class="mt-3 mr-9">
                     <label class="relative" for="upload-img">
                       <div
                           :class="{'border-danger': errors.img || errors.size}"
-                          class="border-2 border-dashed border-gray-400 aspect-square w-full rounded-lg flex flex-col items-center justify-center"
+                          class="aspect-square w-full rounded-lg flex flex-col items-center justify-center"
                       >
                         <div
                             v-if="isValidImage && tmpImgUrl"

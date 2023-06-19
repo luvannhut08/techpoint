@@ -13,31 +13,31 @@
       <div class="flex">
         <div class="flex flex-col justify-center form-create px-4 w-2/3">
           <div class="w-full flex create-layout gap-1 mb-4">
-            <label class="text-sm w-1/3 mr-3 font-medium">Người đổi quà:</label>
+            <label class="text-sm w-1/3 mr-3 font-medium flex items-center">Người đổi quà:</label>
             <div class="flex bg-neutral-100 px-3 w-full py-2 rounded-md border-slate-100 border-1 text-black">
               <p>{{ dataDetail.user?.name }}</p>
             </div>
           </div>
           <div class="w-full flex create-layout gap-1 mb-4">
-            <label class="text-sm w-1/3 mr-3 font-medium">Tên quà:</label>
+            <label class="text-sm w-1/3 mr-3 font-medium flex items-center">Tên quà:</label>
             <div class="flex bg-neutral-100 w-full px-3 py-2 rounded-md border-slate-100 border-1 text-black">
               <p>{{ dataDetail.gift?.name }}</p>
             </div>
           </div>
           <div class="w-full flex create-layout gap-1 mb-4">
-            <label class="text-sm w-1/3 mr-3 font-medium">Số lượng:</label>
+            <label class="text-sm w-1/3 mr-3 font-medium flex items-center">Số lượng:</label>
             <div class="flex bg-neutral-100 w-full px-3 py-2 rounded-md border-slate-100 border-1 text-black">
               <p>{{ dataDetail.amount }}</p>
             </div>
           </div>
           <div class="w-full flex create-layout gap-1 mb-4">
-            <label class="text-sm w-1/3 mr-3 font-medium">Số điểm sử dụng:</label>
+            <label class="text-sm w-1/3 mr-3 font-medium flex items-center">Số điểm sử dụng:</label>
             <div class="flex bg-neutral-100 w-full px-3 py-2 rounded-md border-slate-100 border-1 text-black">
               <p>{{ dataDetail.pointUsed }}</p>
             </div>
           </div>
           <div class="w-full flex create-layout gap-1 mb-4">
-            <label class="text-sm w-1/3 mr-3 font-medium">Ngày đổi:</label>
+            <label class="text-sm w-1/3 mr-3 font-medium flex items-center">Ngày đổi:</label>
             <div class="flex bg-neutral-100 w-full px-3 py-2 rounded-md border-slate-100 border-1 text-black">
               <p>{{ dataDetail.createAt }}</p>
             </div>
@@ -55,7 +55,7 @@
       </button>
       <button v-if="dataDetail.status == 0" class="btn w-24 mr-4 text-white bg-orange-400" href="javascript:;"
               type="button" @click="openModalConfirm">
-        Trao quà
+        Gửi quà
       </button>
     </div>
   </Modal>

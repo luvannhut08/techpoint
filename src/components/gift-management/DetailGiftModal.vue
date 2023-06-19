@@ -36,6 +36,7 @@
                         <input id="gift-point" v-model="gift.point"
                                class=" w-32 v-text-field font-medium bg-transparent border-none focus:border-orange-500 decoration-orange-800 focus:ring focus:ring-orange-200 py-1 px-2 leading-tight focus:outline-none"
                                required
+                               min="0"
                                type="number">
                       </div>
                     </div>
@@ -45,6 +46,7 @@
                       <input id="gift-point" v-model="gift.quantity"
                              class=" w-32 v-text-field font-medium bg-transparent border-none focus:border-orange-500 decoration-orange-800 focus:ring focus:ring-orange-200 py-1 px-2 leading-tight focus:outline-none"
                              required
+                             min="0"
                              type="number">
                     </div>
                     <div class="mt-4 flex">
