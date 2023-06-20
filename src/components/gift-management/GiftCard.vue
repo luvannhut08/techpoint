@@ -1,10 +1,8 @@
 <template>
     <div class="bg-blue-300 text-white rounded-lg p-3 relative w-full aspect-[1/2] h-80">
         <button class="absolute top-0 right-0 text-gray-600 hover:text-red-600" @click="onDelete">
-            <svg class="h-6 w-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                <path clip-rule="evenodd"
-                      d="M12.707 7.293a1 1 0 010 1.414L9.414 11l3.293 3.293a1 1 0 01-1.414 1.414L8 12.414l-3.293 3.293a1 1 0 01-1.414-1.414L6.586 11 3.293 7.707a1 1 0 011.414-1.414L8 9.586l3.293-3.293a1 1 0 011.414 0z"
-                      fill-rule="evenodd"/>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-6">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
             </svg>
         </button>
         <img
@@ -86,8 +84,8 @@ export default {
                 showCancelButton: true,
                 confirmButtonColor: '#9a3412',
                 cancelButtonColor: '#4b5563',
-                confirmButtonText: 'Xóa',
-                cancelButtonText: 'Hủy bỏ',
+                confirmButtonText: 'OK',
+                cancelButtonText: 'Hủy',
                 reverseButtons: true
             })
 
@@ -101,6 +99,7 @@ export default {
                                 title: `<span style="font-weight: normal">Bạn đã xoá</span> <b>${this.gift.name}</b> <span style="font-weight: normal">thành công!</span>`,
                                 timerProgressBar: true,
                                 icon: "success",
+                                timer: 5000,
                                 didOpen: () => {
                                     const titleElement = document.querySelector('.swal2-title');
                                     titleElement.style.lineHeight = '1';

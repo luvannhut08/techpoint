@@ -52,7 +52,7 @@
 </template>
 <script>
 import GiftBoard from "@/components/gift-management/GiftBoard.vue";
-import {mapGetters} from "vuex";
+import {mapActions, mapGetters} from "vuex";
 
 export default {
     name: "GiftManagement",

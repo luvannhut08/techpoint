@@ -13,6 +13,7 @@ import pointUser from "@/stores/modules/point-user";
 import pointsExchange from "@/stores/modules/points-exchange";
 import filterPoint from "@/stores/modules/filter-point";
 import breadcrumb from "@/stores/modules/breadcrumb";
+import groupTab from "@/stores/modules/group-tab";
 const store = new Vuex.Store({
   modules: {
     auth,
@@ -25,7 +26,8 @@ const store = new Vuex.Store({
     pointsExchange,
     pointUser,
     filterPoint,
-    breadcrumb
+    breadcrumb,
+    groupTab
   },
   plugins: [createPersistedState()],
 

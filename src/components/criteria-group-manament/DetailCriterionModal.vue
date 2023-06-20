@@ -49,7 +49,7 @@
                                     <input
                                         id="criterion-name"
                                         v-model="criterion.name"
-                                        class="mr-9 v-text-field font-medium bg-transparent border-none focus:border-orange-500 decoration-orange-800 focus:ring focus:ring-orange-200 w-full text-gray-700 py-1 px-2 leading-tight focus:outline-none"
+                                        class="mr-9 v-text-field font-medium bg-transparent border-none w-full text-gray-700 py-1 px-2 leading-tight focus:outline-none"
                                         required
                                         type="text"
                                     />
@@ -64,10 +64,11 @@
                                     <input
                                         id="criterion-point"
                                         v-model="criterion.point"
-                                        class="mr-9 v-text-field font-medium bg-transparent border-none focus:border-orange-500 decoration-orange-800 focus:ring focus:ring-orange-200 w-full text-gray-700 py-1 px-2 leading-tight focus:outline-none"
+                                        class="mr-9 v-text-field font-medium bg-transparent border-none w-full text-gray-700 py-1 px-2 leading-tight focus:outline-none"
                                         required
                                         type="number"
                                         min="0"
+                                        pattern="[0-9]+"
                                     />
                                 </div>
                                 <div class="mt-4 flex">
@@ -81,7 +82,7 @@
                                         <textarea
                                             id="criterion-description"
                                             v-model="criterion.description"
-                                            class="custom-textarea ml-4 text-justify mt-4 bg-transparent w-11/12 h-72 focus:ring-orange-200 leading-tight rounded border border-gray-400 overflow-y-scroll scroll-view"
+                                            class="custom-textarea ml-4 text-justify mt-4 bg-transparent w-11/12 h-72 leading-tight rounded border border-gray-400 overflow-y-scroll scroll-view"
                                             :required="action === 'update' || action === 'create'"
                                             v-if="action === 'update' || action === 'create'"
                                         ></textarea>
@@ -139,8 +140,8 @@
                         </div>
                     </div>
                 </div>
-                <div v-if="showError" class="text-red-500 mt-2 text-center">
-                    Vui lòng điền đầy đủ thông tin vào các trường!
+                <div v-if="showError" class="text-red-500 mt-5 text-center">
+                    Vui lòng nhập thông tin đầy đủ tại tất cả các mục!
                 </div>
                 <div class="flex justify-center mt-7 mb-7">
                     <button
@@ -161,7 +162,7 @@
                         class="w-24 bg-orange-800 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded"
                         @click="saveCriterion"
                     >
-                        Thêm
+                        Lưu
                     </button>
                 </div>
             </ModalBody>
@@ -192,6 +193,7 @@ export default {
             errorImages: [],
             avatarDefault: AvatarDefault,
             checkDelete: this.action,
+            checkFile: 0
         };
     },
     props: ["isOpen", "onClose", "initialCriterion", "action", "activeGroup"],
@@ -212,7 +214,12 @@ export default {
             try {
                 const data = this.$h.convertJsonToFormData(this.criterion);
                 let res;
-                this.validateImage()
+                if(this.checkFile == 1) {
+                    this.validateImage()
+                }
+                if(this.errorImages.length > 0) {
+                    return
+                }
                 if (this.action === "update") {
                     res = await CriterionApi.updateCriterion(this.criterion.id, data);
                 } else if (this.action === "create") {
@@ -225,13 +232,14 @@ export default {
 
                     let successMessage;
                     if (this.action === "update") {
-                        successMessage = `Cập nhật tiêu chí <b>${this.criterion.name}</b> thành công!`;
+                        successMessage = `<span style="font-weight: normal">Cập nhật tiêu chí</span> <b>${this.criterion.name}</b> <span style="font-weight: normal">thành công!</span>`;
                     } else if (this.action === "create") {
-                        successMessage = "Tạo mới tiêu chí thành công!";
+                        successMessage = `<span style="font-weight: normal">Thêm tiêu chí</span> <b>${this.criterion.name}</b> <span style="font-weight: normal">thành công!</span>`;
                     }
                     await Swal.fire({
                         title: successMessage,
                         timerProgressBar: true,
+                        timer: 1500,
                         icon: "success",
                         didOpen: () => {
                             const titleElement = document.querySelector(".swal2-title");
@@ -249,6 +257,7 @@ export default {
             this.criterion.img = files[0]
             this.tmpImgUrl = URL.createObjectURL(files[0])
             this.checkDelete = "update"
+            this.checkFile = 1
         },
         closeModal() {
             this.onClose();
@@ -272,6 +281,7 @@ export default {
             this.errors = {...this.errors, size: "", img: ""}
             this.criterion.img = this.avatarDefault
             this.tmpImgUrl = this.avatarDefault
+            this.checkFile = 1
         },
         validateImage() {
             let file = this.$refs.uploadImage.files[0]
@@ -286,7 +296,7 @@ export default {
                 return
             }
             if (file.size > 500000) {
-                this.errorImages.push('Kích thước tệp quá lớn. Kích thước tối đa là 500KB.')
+                this.errorImages.push('Vui lòng chọn ảnh có kích thước tối đa là 500KB.')
                 return
             }
         },
@@ -311,6 +321,9 @@ export default {
             this.criterion.groupId = val.id;
         },
         action(newValue, oldValue) {
+            if(newValue == 'create') {
+                this.criterion.groupId = this.activeGroup.id
+            }
             this.errorImages = []
             this.checkDelete = newValue
         }
@@ -354,6 +367,10 @@ textarea {
 
 .btn-upload-img:hover .svg-icon {
     animation: flickering 2s linear infinite
+}
+.invalid-feedback {
+    color: red;
+    margin-top: 8px
 }
 .v-text-field {
     border: none;

@@ -7,23 +7,21 @@
     </svg>
   </div>
   <div>
-    <div v-if="token" class="flex justify-end pt-44 pr-4">
+    <div v-if="token" class="fixed top-0 right-0 mt-5 pr-4">
       <div class="right-align">
-        <div class="absolute top-6 right-6 z-10">
-          <SelfProfileCard @filter-gifts="updateMinValue"/>
-        </div>
+        <SelfProfileCard/>
       </div>
     </div>
     <div class="flex" v-if="activeGroup">
       <div class=" w-1/4 pl-6 pr-6 border-r-2 border-dashed border-primary">
-        <img :class="{'-mt-44 w-96 h-44': token, ' w-96 h-44': !token}"
+        <img :class="{'mt-5 w-96 h-44': token, ' w-96 h-44': !token}"
              src="/src/assets/images/tichdiem.gif"/>
         <GroupPanel :active-group="activeGroup"
                     :group-list="groupList"
                     :on-click-group-tab="clickGroupTab"
         />
       </div>
-      <div :class="{'w-3/4 p-14 pb-0 -mt-28': token, 'w-3/4 p-14': !token}">
+      <div :class="{'w-3/4 p-14 pb-0 mt-16': token, 'w-3/4 p-14': !token}">
         <div class="absolute flex justify-end -mt-2 right-0 pr-56">
           <input
               id="search"

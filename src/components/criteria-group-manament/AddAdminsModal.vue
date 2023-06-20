@@ -36,7 +36,7 @@
                             @click="closeModal">Hủy
                     </button>
                     <button class="px-4 py-2 bg-orange-700 hover:bg-orange-500 text-white rounded-lg w-24"
-                            @click="addNewAdmins">Thêm
+                            @click="addNewAdmins">Lưu
                     </button>
                 </div>
             </ModalBody>
@@ -80,9 +80,11 @@ export default {
             if (this.selectedAdmins.length === 0) {
                 this.closeModal()
                 await Swal.fire({
-                        title: 'Không admin nào được thêm!',
+                        title: 'Không người đánh giá nào được thêm!',
                         timerProgressBar: true,
-                        icon: "error"
+                        icon: "error",
+                        timer: 1500,
+
                     }
                 )
                 return
@@ -91,9 +93,10 @@ export default {
             if (res.status === 200) {
                 this.closeModal()
                 await Swal.fire({
-                    title: 'Thêm admin thành công!',
+                    title: 'Thêm người đánh giá thành công!',
                     timerProgressBar: true,
-                    icon: "success"
+                    icon: "success",
+                    timer: 1500
                 })
                 this.$store.dispatch("criteriaGroup/fetchCriteriaGroupList")
                 this.resetSelectedAdmins()

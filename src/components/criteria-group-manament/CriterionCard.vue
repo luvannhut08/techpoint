@@ -1,16 +1,15 @@
 <template>
     <div class="h-fit relative shadow-md rounded-md p-4 bg-white">
-        <button class="absolute top-0 right-0 text-gray-600 hover:text-red-600" @click="onDelete">
-            <svg class="h-6 w-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                <path clip-rule="evenodd"
-                      d="M12.707 7.293a1 1 0 010 1.414L9.414 11l3.293 3.293a1 1 0 01-1.414 1.414L8 12.414l-3.293 3.293a1 1 0 01-1.414-1.414L6.586 11 3.293 7.707a1 1 0 011.414-1.414L8 9.586l3.293-3.293a1 1 0 011.414 0z"
-                      fill-rule="evenodd"/>
-            </svg>
+        <button class="absolute top-0 right-1 text-gray-600 hover:text-red-600" @click="onDelete">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-6">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+        </svg>
         </button>
+
         <button class="h-52 w-full mt-2" @click="openModal">
             <img :src="criterion.img" alt="" class="h-full w-full object-cover rounded-md">
         </button>
-        <h3 class="text-lg font-medium h-[2rem] truncate text-center mt-8">{{ criterion.name }}</h3>
+        <h3 class="text-lg font-medium h-[2rem] truncate text-center mt-8 cursor-pointer" @click="openModal">{{ criterion.name }}</h3>
         <div class="flex mt-2 mb-2">
             <div class="justify-center m-auto flex bg-blue-800 text-white font-bold py-2 px-5 rounded ">
                 <svg class=" w-6 h-6 fill-yellow-400" fill="none" stroke="currentColor" stroke-width="2"
@@ -19,7 +18,7 @@
                           strokeLinecap="round"
                           strokeLinejoin="round"/>
                 </svg>
-                <span class="ml-2 text-lg ">{{ criterion.point }}</span>
+                <span class="ml-2 text-lg cursor-pointer" @click="openModal">{{ criterion.point }}</span>
             </div>
         </div>
         <DetailCriterionModal :initial-criterion="Object.assign({},criterion)"
@@ -55,17 +54,15 @@ export default {
         },
         async onDelete() {
             const result = await Swal.fire({
-                title: 'Bạn có chắc muốn xóa?',
-                text: "Hành động này không thể hoàn tác!",
+                title: `<span style="font-weight: normal; font-size:25px ;line-height: 2">Xác nhận xoá tiêu chí</span> <b style="font-size:25px ">${this.criterion.name}?</b>`,
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#9a3412',
                 cancelButtonColor: '#4b5563',
-                confirmButtonText: 'Xóa',
-                cancelButtonText: 'Hủy bỏ',
+                confirmButtonText: 'OK',
+                cancelButtonText: 'Hủy',
                 reverseButtons: true
             })
-
             if (result.isConfirmed) {
                 try {
                     const res = await CriterionApi.deleteById(this.criterion.id)
@@ -74,6 +71,7 @@ export default {
                         await Swal.fire({
                                 title: `<span style="font-weight: normal">Bạn đã xoá</span> <b>${this.criterion.name}</b> <span style="font-weight: normal">thành công!</span>`,
                                 timerProgressBar: true,
+                                timer: 1500,
                                 icon: "success",
                                 didOpen: () => {
                                     const titleElement = document.querySelector('.swal2-title');

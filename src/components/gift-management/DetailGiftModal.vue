@@ -147,7 +147,8 @@ export default {
       showError: false,
       avatarDefault: AvatarDefault,
       checkDelete: this.actionModal,
-      errorImages: []
+      errorImages: [],
+      checkFile: 0
     }
   },
   props: ["isOpen", "onClose", "initialGift", "actionModal"],
@@ -155,12 +156,12 @@ export default {
     async updateGift() {
       this.errors = {}
       this.showError = false
-      if (!this.gift.name || !this.gift.point || !this.gift.quantity || !this.gift.description) {
+      if (!this.gift.name || !this.gift.point || !this.gift.description) {
         this.showError = true
         return
       }
-      this.validateImage()
       if (this.actionModal == "CREATE") {
+        this.validateImage()
         try {
           if(this.errorImages.length > 0) {
             return
@@ -170,8 +171,9 @@ export default {
             this.closeModal()
             this.$store.dispatch("gifts/fetchGifts")
             await Swal.fire({
-              title: 'Tạo món quà thành công!',
+              title: `<span style="font-weight: normal">Tạo món quà thành công!</span>`,
               timerProgressBar: true,
+              timer: 5000,
               icon: "success"
             })
           }
@@ -180,6 +182,9 @@ export default {
         }
       } else {
         try {
+          if(this.checkFile == 1) {
+            this.validateImage()
+          }
           if(this.errorImages.length > 0) {
             return
           }
@@ -191,6 +196,7 @@ export default {
             await Swal.fire({
               title: `<span style="font-weight: normal">Cập nhật quà tặng </span> <b>${this.gift.name}</b> <span style="font-weight: normal">thành công!</span>`,
               timerProgressBar: true,
+              timer: 5000,
               icon: "success",
               didOpen: () => {
                 const titleElement = document.querySelector('.swal2-title');
@@ -209,6 +215,7 @@ export default {
       this.gift.img = files[0]
       this.tmpImgUrl = URL.createObjectURL(files[0])
       this.checkDelete = "UPDATE"
+      this.checkFile = 1
     },
     closeModal() {
       this.reset()
@@ -226,6 +233,7 @@ export default {
       this.errors = {...this.errors, size: "", img: ""}
       this.gift.img = this.avatarDefault
       this.tmpImgUrl = this.avatarDefault
+      this.checkFile = 1
     },
     validateImage() {
       let file = this.$refs.uploadImage.files[0]

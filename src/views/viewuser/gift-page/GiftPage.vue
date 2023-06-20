@@ -26,7 +26,7 @@
       <div v-if="listGift.length === 0" class="w-full h-full flex justify-center items-center mt-40">
         <div class="text-lg font-bold">Không có dữ liệu trùng khớp!</div>
       </div>
-      <GiftBoard v-else :gift-list="listGift" />
+      <GiftBoard v-else :gift-list="listGift" @fetch-data="fetchData"/>
     </div>
   </div>
 </template>
@@ -78,10 +78,13 @@ export default {
       }
     },
     getDeletePoint(value) {
-      console.log(value)
-      if(typeof value == "object" && value.length >=   1) {
+      if(typeof value == "object" && value.length >= 1) {
+        value.map(item => {
+          let foundElement = this.searchPoint.findIndex(element => element === item)
+          this.searchPoint.splice(foundElement, 1)
+        })
         this.listGift = this.giftList
-        this.searchPoint = []
+        this.renderList()
       }
       else {
         this.searchPoint = this.searchPoint.filter(item => item !== value[0])
@@ -92,6 +95,16 @@ export default {
   },
   methods: {
     ...mapActions("filterPoint", ["updatePointSelected"]),
+    fetchData(data) {
+      this.$store.dispatch("gifts/fetchGifts")
+      this.listGift = this.getList
+      this.listGift.map((item, index) => {
+          if(data.giftId === item.id) {
+            item.quantity = item.quantity - data.amount
+          }
+      })
+      this.renderList()
+    },
     renderList() {
       if (this.searchPoint.length > 0 && this.searchTerm !== "") {
         this.listGift = this.giftList.filter(gift => {
@@ -124,6 +137,7 @@ export default {
     ...mapGetters({
       giftList: "gifts/getList"
     }),
+    ...mapGetters('gifts', ['getList']),
     ...mapGetters('filterPoint', ['getSearchByPoint', "getDeletePoint"])
   },
   mounted() {

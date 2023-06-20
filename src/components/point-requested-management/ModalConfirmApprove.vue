@@ -5,9 +5,8 @@
         <img v-if="status === 2" src="/src/assets/images/bug-brown.gif" alt="🤔" width="60" height="60">
         <img v-else src="/src/assets/images/consider.gif" alt="🤔" width="60" height="60">
       </picture>
-      <div class="text-3xl mt-5">Nhấn {{ status === 1 ? "Duyệt" : "Từ chối" }} để <span
-          class="font-medium">{{ status === 1 ? "Duyệt" : "Từ chối" }}</span> yêu cầu tích điểm của <br/> <span
-          class="font-medium">{{ username }}</span>?
+      <div class="text-3xl mt-5">Xác nhận {{ status === 1 ? "phê duyệt" : "từ chối" }} yêu cầu tích điểm của <span
+          class="font-medium">{{ this.dataDetail.user?.name }}</span>
       </div>
     </div>
     <div class="px-5 pb-8 text-center">
@@ -17,11 +16,11 @@
       </button>
       <button v-if="status === 1"
               type="button" class="btn bg-green-400 text-white w-24"
-              @click="updateStatusPointRequest">Duyệt
+              @click="updateStatusPointRequest">OK
       </button>
       <button v-else
               type="button" class="btn bg-rose-400 text-white w-24"
-              @click="updateStatusPointRequest">Từ chối
+              @click="updateStatusPointRequest">OK
       </button>
     </div>
   </Modal>
@@ -57,7 +56,7 @@ export default {
         this.$store.dispatch('pointsExchange/fetchPointsRequestedList')
         if (params.status === 1) {
           await Swal.fire({
-            title: `<span style="font-weight: normal">${this.username} đã được tích <span><b>${this.dataDetail.point}</b></span> điểm từ tiêu chí <b>${this.dataDetail.criterion?.name}</b> </span>`,
+            title: `<span style="font-weight: normal"><b>${this.dataDetail.user?.name}</b> đã được tích <span><b>${this.dataDetail.point}</span>`,
             timerProgressBar: true,
             icon: "success",
             didOpen: () => {
@@ -67,7 +66,7 @@ export default {
           })
         } else {
           await Swal.fire({
-            title: `<span style="font-weight: normal">Bạn đã hủy bỏ yêu cầu tích <span><b>${this.dataDetail.point}</b></span> điểm từ tiêu chí <b>${this.dataDetail.criterion?.name}</b> của <b>${this.dataDetail.user?.name}</b></span>`,
+            title: `<span style="font-weight: normal">Từ chối yêu cầu tích điểm thành công</span>`,
             timerProgressBar: true,
             icon: "success",
             didOpen: () => {

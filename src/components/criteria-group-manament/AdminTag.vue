@@ -46,8 +46,8 @@ export default {
                 showCancelButton: true,
                 confirmButtonColor: '#9a3412',
                 cancelButtonColor: '#4b5563',
-                confirmButtonText: 'Xóa',
-                cancelButtonText: 'Hủy bỏ',
+                confirmButtonText: 'OK',
+                cancelButtonText: 'Hủy',
                 reverseButtons: true
             });
             if (result.isConfirmed) {
@@ -58,6 +58,7 @@ export default {
                         await Swal.fire({
                             title: `Bạn đã xoá ${this.admin.name} thành công!`,
                             timerProgressBar: true,
+                            timer: 1500,
                             icon: "success",
                             didOpen: () => {
                                 const titleElement = document.querySelector('.swal2-title');
@@ -68,7 +69,7 @@ export default {
                 } catch (e) {
                     await Swal.fire({
                         title: `Có lỗi xảy ra ở đây!!`,
-                        timer: 3000,
+                        timer: 1500,
                         timerProgressBar: true,
                         icon: "error"
                     });

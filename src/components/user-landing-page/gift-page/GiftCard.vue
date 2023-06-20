@@ -2,14 +2,16 @@
   <div class="text-white rounded-lg p-4 relative w-full aspect-[1/2] h-80">
     <div class="relative">
       <div class="flex justify-center">
-        <div :class="{'overlay': gift.quantity < 1, 'hidden': gift.quantity > 0}"><span class="pb-4">Hết quà</span>
+        <div class="relative">
+          <img
+              :src="gift.img"
+              alt="Card Image"
+              class="object-cover rounded-md h-64 w-64"
+              data-action="zoom"
+          />
+          <div :class="{'overlay': gift.quantity < 1, 'hidden': gift.quantity > 0}"><span class="pb-4">Hết quà</span>
+          </div>
         </div>
-        <img
-            :src="gift.img"
-            alt="Card Image"
-            class="object-cover rounded-md h-64 w-64"
-            data-action="zoom"
-        />
         <div class="absolute top-0 right-0 flex flex-col items-end gap-2 p-3 mt-6">
           <div class="opacity-80 flex items-center w-24 -mr-10"
                :class="gift.quantity < 1 ? 'bg-stone-400' : 'bg-yellow-200'">
@@ -43,7 +45,7 @@
             <p class="text-lg text-orange-800">200</p>
           </div>
           <img class="w-24"
-              :class="{'bg-slate-500 hover:bg-slate-500 cursor-not-allowed': gift.quantity <= 0, 'border-2 border-orange-700 rounded-md w-22 h-16 -mr-7 cursor-pointer transition-transform transform hover:scale-110': true}"
+              :class="{'bg-slate-500 hover:bg-slate-500 cursor-not-allowed hidden': selfPointInfo.totalOfPoint <= 0, 'border-2 border-orange-700 rounded-md w-22 h-16 -mr-7 cursor-pointer transition-transform transform hover:scale-110': true}"
               alt="đổi điểm Image"
               src="/src/assets/images/traoqua.jpg"
               @click="handleImageClick()"
@@ -67,6 +69,7 @@
         :initial-gift="Object.assign({},gift)"
         :is-open="isModalExchangeOpen"
         :on-close="closeModalExchange"
+        @fetch-data="fetchData"
     />
   </div>
 </template>
@@ -74,6 +77,7 @@
 import DetailGiftModal from "@/components/user-landing-page/gift-page/DetailGiftModal.vue";
 import ExchangeGiftModal from "@/components/gift-requested-management/ExchangeGiftModal.vue";
 import {getToken} from "@/utils/localStorageUtils";
+import {mapGetters} from "vuex";
 
 export default {
   name: "GiftCard",
@@ -84,10 +88,19 @@ export default {
       isModalOpen: false,
       isModalExchangeOpen: false,
       checkLogin: false,
-      token: getToken()
+      token: getToken(),
+      data: []
     }
   },
+  computed: {
+    ...mapGetters({
+          selfPointInfo: "point/getSelfPointInfo",
+    })
+  },
   methods: {
+    fetchData(value) {
+      this.$emit('fetch-data', value)
+    },
     openModal() {
       this.isModalOpen = true
     },
@@ -122,7 +135,7 @@ export default {
 .overlay {
     position: absolute;
     top: 0;
-    left: 0;
+    left: -6px;
     width: 100px;
     display: flex;
     justify-content: center;

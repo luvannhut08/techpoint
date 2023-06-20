@@ -23,7 +23,7 @@
 <script>
 import CriteriaGroupTab from "@/components/criteria-group-manament/CriteriaGroupTab.vue";
 import CriteriaPanel from "@/components/criteria-group-manament/CriteriaPanel.vue";
-import {mapGetters} from "vuex";
+import {mapActions, mapGetters} from "vuex";
 import AdminsPanel from "@/components/criteria-group-manament/AdminsPanel.vue";
 import GroupPanel from "@/components/criteria-group-manament/GroupPanel.vue";
 
@@ -33,7 +33,8 @@ export default {
     data() {
         return {
             activeGroup: null,
-            isOpen: false
+            isOpen: false,
+            groupPanel: 0
         };
     },
     async created() {
@@ -44,19 +45,24 @@ export default {
         ...mapGetters({
             groupList: "criteriaGroup/getList"
         }),
+        ...mapGetters('groupTab', ["getGroup"])
     },
     methods: {
+        ...mapActions("groupTab", ['updateGroup']),
         clickGroupTab(group) {
+            this.updateGroup(group)
             this.activeGroup = group;
             this.$refs.adminsPanel.chosenAdminId = ""
         },
         deleteGroup(id) {
-            // console.log("delete: ", id);
         },
     },
     watch: {
+        getGroup(value) {
+            this.groupPanel = this.groupList.findIndex(element => element.id === value.id)
+        },
         groupList() {
-            this.activeGroup = this.groupList[0]
+            this.activeGroup = this.groupList[this.groupPanel]
         }
     }
 };

@@ -1,7 +1,7 @@
 <template>
   <div class="relative">
     <div class="bg-white flex">
-      <div class="flex scroll-item items-center gap-2 pl-2" @mouseover="showScroll" @mouseout="hideScroll" ref="scrollContainer"
+      <div class="flex scroll-item items-center gap-2 pl-2 scroll-view" v-dragscroll @mouseover="showScroll"  @mouseout="hideScroll" ref="scrollContainer"
            :class="{'overflow-x-scroll width-scroll': newArraySearch.length > 3}">
         <div class="text-white select-point" v-for="(item,index) in newArraySearch" :key="item">
           <div class="bg-blue-400 pl-2 py-1 text-center flex items-center rounded-md gap-2 text-size">
@@ -21,10 +21,14 @@
 
 <script>
 import {mapActions, mapGetters} from "vuex";
+import {dragscroll} from "vue-dragscroll";
 
 export default {
   name: "FilterByScore",
   props: ["numbers"],
+  directives: {
+    dragscroll
+  },
   data() {
     return {
       filteredItems: [],

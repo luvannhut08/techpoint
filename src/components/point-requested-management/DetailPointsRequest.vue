@@ -1,37 +1,37 @@
 <template>
   <Modal :show="isOpen" size="modal-xl" @hidden="closeModal(0)">
     <ModalHeader>
-      <h2 class="font-medium text-lg">Yêu cầu đổi điểm của {{ this.dataDetail.user?.name }}</h2>
+      <h2 class="font-medium text-lg">Yêu cầu đổi điểm của</h2>
     </ModalHeader>
     <ModalBody>
       <div class="flex">
         <div class="flex flex-col justify-center form-create px-4 w-2/3">
           <div class="w-full flex create-layout gap-1 mb-4">
-            <label class="text-sm w-1/3 mr-3 font-medium">Nhân viên yêu cầu đổi điểm:</label>
+            <label class="text-sm w-1/3 mr-3 font-medium flex items-center">Người yêu cầu:</label>
             <div class="flex bg-neutral-100 px-3 w-full py-2 rounded-md border-slate-100 border-1 text-black">
               <p>{{ this.dataDetail.user?.name }}</p>
             </div>
           </div>
           <div class="w-full flex create-layout gap-1 mb-4">
-            <label class="text-sm w-1/3 mr-3 font-medium">Tên tiêu chí:</label>
+            <label class="text-sm w-1/3 mr-3 font-medium flex items-center">Tên tiêu chí:</label>
             <div class="flex bg-neutral-100 w-full px-3 py-2 rounded-md border-slate-100 border-1 text-black">
               <p>{{ this.dataDetail.criterion?.name }}</p>
             </div>
           </div>
           <div class="w-full flex create-layout gap-1 mb-4">
-            <label class="text-sm w-1/3 mr-3 font-medium">Số điểm đổi:</label>
+            <label class="text-sm w-1/3 mr-3 font-medium flex items-center">Số điểm đổi:</label>
             <div class="flex bg-neutral-100 w-full px-3 py-2 rounded-md border-slate-100 border-1 text-black">
               <p>{{ this.dataDetail.point }}</p>
             </div>
           </div>
           <div class="w-full flex create-layout gap-1 mb-4">
-            <label class="text-sm w-1/3 mr-3 font-medium">Ngày gửi yêu cầu:</label>
+            <label class="text-sm w-1/3 mr-3 font-medium flex items-center">Ngày gửi yêu cầu:</label>
             <div class="flex bg-neutral-100 w-full px-3 py-2 rounded-md border-slate-100 border-1 text-black">
               <p>{{ this.dataDetail.createAt }}</p>
             </div>
           </div>
           <div class="w-full flex create-layout gap-1 mb-4">
-            <label class="text-sm w-1/3 mr-3 font-medium">Người phụ trách:</label>
+            <label class="text-sm w-1/3 mr-3 font-medium flex items-center">Người phụ trách:</label>
             <div class="flex bg-neutral-100 w-full px-3 py-2 rounded-md border-slate-100 border-1 text-black">
               <div class="flex -space-x-4">
                 <AdminTagForPointsRequested v-for="admin in this.dataDetail.adminToGroup" :admin="admin" class="h-9"/>

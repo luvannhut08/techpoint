@@ -60,7 +60,7 @@
                 <div class="flex items-center px-5 py-3 border-t border-slate-200/60 dark:border-darkmode-400">
                   <p class="font-medium text-center">Những người đổi gần đây:</p>
                   <div class="intro-x flex ml-2">
-                    <div class="intro-x w-8 h-8 image-fit" v-if="item.userRecentExchange"
+                    <div class="intro-x w-8 h-8 image-fit"
                          v-for="(ele, key) in item.usersRecentExchange" :key="key">
                       <Tippy tag="img" alt="Midone Tailwind HTML Admin Template"
                              class="rounded-full border border-white zoom-in" :src="ele.avatarUrl"

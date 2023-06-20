@@ -1,7 +1,9 @@
 <template>
     <div class="bg-gray-200 flex items-center justify-between p-4 mb-4 text-gray-500 rounded-lg shadow dark:text-gray-400 dark:bg-gray-800 h-[6vh] cursor-pointer"
          @click="onClick">
-        <div class="truncate mt-1 ml-3 text-lg font-bold">{{ group.name }}</div>
+      <Tippy class="truncate mt-1 ml-3 text-lg font-bold" :content="group.name" placement="bottom">
+        {{ group.name }}
+      </Tippy>
         <button class="ml-auto -mx-1.5 -my-1.5 bg-white text-gray-400 hover:text-gray-900 rounded-lg focus:ring-2 focus:ring-gray-300 p-1.5 hover:bg-gray-100 inline-flex h-8 w-8 dark:text-gray-500 dark:hover:text-white dark:bg-gray-800 dark:hover:bg-gray-700"
                 data-dismiss-target="#toast-success"
                 type="button"
@@ -20,23 +22,22 @@
 import Swal from 'sweetalert2'
 import CriteriaGroupsApi from "@/api/CriteriaGroupsApi";
 
+
 export default {
     name: "CriteriaGroupTab",
     props: ["group", "onClick"],
     methods: {
         async handleDelete() {
             const result = await Swal.fire({
-                title: 'Bạn có chắc muốn xóa?',
-                text: "Hành động này không thể hoàn tác!",
+                title: `<span style="font-weight: normal; font-size:25px ;line-height: 2">Xác nhận xoá nhóm tiêu chí</span> <b style="font-size:25px ">${this.group.name}?</b>`,
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#9a3412',
                 cancelButtonColor: '#4b5563',
-                confirmButtonText: 'Xóa',
-                cancelButtonText: 'Hủy bỏ',
+                confirmButtonText: 'OK',
+                cancelButtonText: 'Hủy',
                 reverseButtons: true
             })
-
             if (result.isConfirmed) {
                 try {
                     const res = await CriteriaGroupsApi.deleteById(this.group.id)
@@ -46,6 +47,7 @@ export default {
                             {
                                 title: `<span style="font-weight: normal">Bạn đã xoá</span> <b>${this.group.name}</b> <span style="font-weight: normal">thành công!</span>`,
                                 timerProgressBar: true,
+                                timer: 1500,
                                 icon: "success",
                                 didOpen: () => {
                                     const titleElement = document.querySelector('.swal2-title');

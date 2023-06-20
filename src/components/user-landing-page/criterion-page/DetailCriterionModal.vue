@@ -1,5 +1,5 @@
 <template>
-  <Modal :show="isOpen" size="modal-xl" @hidden="closeModal">
+  <Modal :show="isOpen" size="modal-xl" @hidden="closeModal" class="font-special">
     <img
         alt=""
         class="absolute opacity-100 w-full h-full"
@@ -38,7 +38,7 @@
               <div class="mt-4 mx-auto ml-52">
                 <div class="flex items-end">
                   <label
-                      class="text-lg mr-11 w-48 font-sans leading-6 font-medium text-orange-700"
+                      class="text-lg mr-11 w-48 leading-6 font-medium text-orange-700"
                       for="criterion-name"
                   >
                     Tên tiêu chí
@@ -53,7 +53,7 @@
                 </div>
                 <div class="flex mt-4 items-end">
                   <label
-                      class="w-60 text-lg mr-4 font-sans leading-6 font-medium text-orange-700"
+                      class="w-60 text-lg mr-4 leading-6 font-medium text-orange-700"
                       for="criterion-point"
                   >
                     Số điểm tương ứng
@@ -69,7 +69,7 @@
                 <div class="mt-4 flex">
                   <div class="mr-7">
                     <label
-                        class="text-lg font-sans leading-6 font-medium text-orange-700"
+                        class="text-lg leading-6 font-medium text-orange-700"
                         for="criterion-description"
                     >
                       Mô tả chi tiết
@@ -78,13 +78,12 @@
                         disabled="disabled"
                         id="criterion-description"
                         v-model="criterion.description"
-                        class="ml-4  custom-textarea border-none bg-transparent w-96 h-72 leading-tight overflow-y-scroll scroll-view pointer-events-none border-transparent focus:outline-none"
+                        class="ml-4  custom-textarea border-none bg-transparent w-80 h-72 leading-tight overflow-y-scroll scroll-view pointer-events-none border-transparent focus:outline-none"
                     ></textarea>
                   </div>
                   <div class="mt-3 mr-9">
-                    <label class="relative" for="upload-img">
+                    <label class="relative">
                       <div
-                          :class="{'border-danger': errors.img || errors.size}"
                           class="aspect-square w-full rounded-lg flex flex-col items-center justify-center"
                       >
                         <div
@@ -98,26 +97,6 @@
                               class="w-64 h-52 object-full"
                           />
                         </div>
-                      </div>
-                      <div class="absolute inset-0 flex items-center justify-center">
-                        <button
-                            class="rounded-full bg-orange-800 text-light w-10 h-10 flex items-center justify-center opacity-25"
-                        >
-                          <svg
-                              class="w-6 h-6"
-                              fill="none"
-                              stroke="currentColor"
-                              stroke-width="1.5"
-                              viewBox="0 0 24 24"
-                              xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <path
-                                d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5"
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                            />
-                          </svg>
-                        </button>
                       </div>
                     </label>
                   </div>
@@ -142,10 +121,8 @@ export default {
         img: null,
         groupId: this.action === "create" ? this.activeGroup.id : null,
       },
-      errors: {},
       tmpImgUrl: this.initialCriterion && this.initialCriterion.img ? this.initialCriterion.img : "",
-      isValidImage: true,
-      showError: false
+      isValidImage: true
     };
   },
   props: ["isOpen", "onClose", "initialCriterion", "activeGroup"],

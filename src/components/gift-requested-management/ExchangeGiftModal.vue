@@ -110,7 +110,8 @@ export default {
       totalRequest: 0,
       userId: null,
       pointUser: 0,
-      totalOfPoint: 0
+      totalOfPoint: 0,
+      giftRequest: []
     }
   },
   created() {
@@ -156,7 +157,7 @@ export default {
       if(this.gift.quantity < this.quantity){
         this.onClose()
         await Swal.fire({
-          title: `<span style="font-weight: normal">Rất tiếc<br> Số quà còn lại không đủ</span> <br> <span style="font-weight: normal">Vui lòng đổi tối đa</span> <b class="text-red-400">${this.gift.quantity}</b> <b>${this.gift.name}</b><span> </span>`,
+          title: `<span style="font-weight: normal">Rất tiếc<br> Số quà còn lại không đủ</span> <br> <span style="font-weight: normal">Vui lòng đổi tối đa</span> <b class="text-red-400" style="font-weight: normal">${this.gift.quantity}</b> <b>${this.gift.name}</b><span> </span>`,
           timerProgressBar: true,
           icon: "error",
           didOpen: () => {
@@ -167,7 +168,7 @@ export default {
       }else if(this.totalOfPoint < this.point) {
         this.onClose()
         await Swal.fire({
-          title: `<span class="text-sm" style="font-weight: normal">Rất tiếc, số điểm của bạn không đủ để đổi</span> <b class="text-red-400">${this.quantity}</b> <b>${this.gift.name}</b><span> </span>`,
+          title: `<span style="font-weight: normal">Rất tiếc, số điểm của bạn không đủ để đổi</span> <b class="text-red-400" style="font-weight: normal">${this.quantity}</b> <b>${this.gift.name}</b><span> </span>`,
           timerProgressBar: true,
           icon: "error",
           didOpen: () => {
@@ -184,13 +185,13 @@ export default {
           giftId: id
         }
         const res = await GiftsExchange.createRequest(this.$h.convertJsonToFormData(payload))
-        this.$store.dispatch("gifts/fetchGifts")
+        this.$emit("fetch-data", payload)
         this.$store.dispatch("point/fetchSelfPointInfo")
         this.reset();
         this.onClose()
         if(res.status == 200) {
           await Swal.fire({
-            title: `<span style="font-weight: normal">Gửi yêu cầu đổi</span> <b>${this.quantity}</b> <b>${this.gift.name}</b> thành công<span>`,
+            title: `<span style="font-weight: normal">Gửi yêu cầu đổi</span> <b class="text-red-400" style="font-weight: normal">${this.quantity}</b> <b >${this.gift.name}</b><br><span style="font-weight: normal"> thành công</span><span>`,
             timerProgressBar: true,
             icon: "success",
             didOpen: () => {

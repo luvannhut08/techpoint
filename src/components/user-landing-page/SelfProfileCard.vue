@@ -52,11 +52,6 @@ export default {
             username: "auth/username",
             avatarUrl: "auth/avatarUrl",
         }),
-
-        userPoint() {
-            return this.getPoint;
-        },
-
         isTop1() {
             return this.selfPointInfo.rank === 1;
         },

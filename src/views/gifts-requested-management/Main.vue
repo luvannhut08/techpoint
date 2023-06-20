@@ -3,7 +3,7 @@
                       :gift-name="giftName" :selected-time="selectedTime"/>
   <ApprovalGiftRequest :is-open="isModalOpen" :on-close="closeModal" :request-id="requestedId"
                        :selected-time="selectedTime"/>
-  <div>
+  <div class="scroll-view">
     <table class="table text-white font-medium">
       <thead class="text-white">
       <tr>
@@ -33,8 +33,8 @@
                   @click="openModalConfirm(item.id, item.gift?.name)">
             Gửi quà
           </button>
-          <i class="fa-regular fa-circle-check fa-2xl" style="color: #23da16;" v-if="item.status === 1"></i>
-          <i class="fa-regular fa-circle-xmark fa-2xl" style="color: #f20d0d;" v-if="item.status === 2"></i>
+          <i class="fa-regular fa-circle-check fa-2xl py-3" style="color: #23da16;" v-if="item.status === 1"></i>
+          <i class="fa-regular fa-circle-xmark fa-2xl py-3" style="color: #f20d0d;" v-if="item.status === 2"></i>
         </td>
       </tr>
       </tbody>
@@ -149,11 +149,21 @@ tbody {
 
 .table td {
     border-color: #F1F5F9;
-    border-bottom-width: 10px;
+    border-bottom-width: 6px;
+}
+
+.table th {
+  border-color: #F1F5F9;
+  border-bottom-width: 6px;
 }
 
 .table tr {
     border-radius: 30px;
+}
+
+.scroll-view {
+  height: 500px;
+  overflow-y: scroll;
 }
 </style>
 

@@ -1,9 +1,9 @@
 <template>
   <div class="relative">
-    <img :class="{'-mt-28 w-96 h-44': token, 'w-96 h-44': !token}"
+    <img :class="{'-mt-28 w-96 h-44': token, 'w-96 h-44 -mt-3': !token}"
     src="/src/assets/images/point.gif"/>
   </div>
-  <FilterByScore class="-mt-2"/>
+  <FilterByScore class="-mt-3"/>
   <div class="mt-10">
     <div class="relative">
       <div class="flex justify-center mt-4 absolute previous-next gap-52 z-10">
@@ -29,7 +29,7 @@
       </div>
       <div class="relative">
         <Block :numbers="paginatedBlocksPrimary" title="Cấp độ tiểu học" @add-to-block="addElementToBlock" @remove-to-block="removeElementToBlock">
-        <img class="w-32 h-20 absolute -mt-16 ml-60" src="/src/assets/images/student1.png"/>
+        <img class="w-32 h-20 absolute -mt-14 ml-52" src="/src/assets/images/student1.png"/>
         </Block>
       </div>
     </div>
@@ -56,7 +56,7 @@
       </div>
       <div class="relative">
         <Block :numbers="paginatedBlocksSecondary" @add-to-block="addElementToBlock" @remove-to-block="removeElementToBlock" title="Cấp độ trung học">
-        <img class="w-32 h-20 absolute -mt-16 z-10 ml-2" src="/src/assets/images/student2.png"/>
+        <img class="w-32 h-20 absolute -mt-14 -ml-3 z-10" src="/src/assets/images/student2.png"/>
       </Block>
     </div>
     </div>
@@ -71,8 +71,9 @@
             <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 12h-15m0 0l6.75 6.75M4.5 12l6.75-6.75"/>
           </svg>
         </button>
-        <button :disabled="currentPageHighSchool === totalPageHighSchool"
+        <button
                 class="px-3 py-1 bg-blue-500 hover:bg-blue-950 text-white rounded-md next-button transform -translate-x-1/2"
+                :class="{'cursor-not-allowed': currentPageHighSchool === totalPageHighSchool}"
                 @click="nextPageSecondary">
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" StrokeWidth={1.5}
                stroke="currentColor" class="w-5 h-5">
@@ -82,8 +83,8 @@
       </div>
      <div class="relative">
        <Block :numbers="paginatedBlocksHighSchool" title="Cấp độ cấp ba" @add-to-block="addElementToBlock" @remove-to-block="removeElementToBlock">
-         <img class="w-32 h-20 absolute -mt-16 z-10" src="/src/assets/images/student1.png"/>
-         <img class="w-32 h-20 absolute -mt-16 ml-48 z-10" src="/src/assets/images/student2.png"/>
+         <img class="w-32 h-20 absolute -mt-14 z-10 -ml-3" src="/src/assets/images/student1.png"/>
+         <img class="w-32 h-20 absolute -mt-14 ml-48 z-10" src="/src/assets/images/student2.png"/>
        </Block>
      </div>
     </div>

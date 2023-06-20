@@ -15,6 +15,8 @@
         <AdminTag v-for="admin in adminListShowed" :admin="admin" :is-show-tooltip="admin.id === chosenAdminId"
                   :toggle-tooltip="toggleTooltip"
                   :group-id="activeGroup.id"
+                  @blur="handleFocusOut"
+                  tabindex="0"
         />
         <div v-if="isMoreThan5Admins"
              class="inline-flex items-center justify-center flex-shrink-0 w-12 h-12 bg-gray-200 hover:bg-white rounded-full cursor-pointer"
@@ -78,6 +80,11 @@ export default {
         toggleShowAllAdmins() {
             this.showFullAdminList = !this.showFullAdminList
         },
+        handleFocusOut () {
+          setTimeout(() => {
+            this.chosenAdminId = ""
+          },150)
+        }
     }
 }
 </script>
