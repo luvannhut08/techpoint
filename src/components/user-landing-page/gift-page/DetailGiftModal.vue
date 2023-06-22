@@ -52,7 +52,7 @@
                                                        for="gift-description">Mô tả chi tiết</label>
                                               <textarea id="gift-description"
                                                         v-model="gift.description"
-                                                        class="mt-2 custom-textarea border-none bg-transparent w-96 h-72 leading-tight overflow-y-scroll scroll-view pointer-events-none border-transparent focus:outline-none"
+                                                        class="mt-2 custom-textarea border-none bg-transparent w-96 h-72 leading-tight overflow-y-scroll scroll-view border-transparent focus:outline-none"
                                                         readonly></textarea>
                                             </div>
                                         </div>
@@ -111,5 +111,12 @@ textarea {
     border: none;
     border-bottom: 1px solid #7c2d12;
     padding-bottom: 2px;
+}
+textarea::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(to right, wheat, white);
+}
+
+textarea::-webkit-scrollbar-thumb {
+    background: white;
 }
 </style>

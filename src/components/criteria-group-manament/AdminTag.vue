@@ -40,7 +40,7 @@ export default {
     methods: {
         async onDelete() {
             const result = await Swal.fire({
-                title: 'Bạn có chắc muốn xóa?',
+                title: `<span style="font-weight: normal">Xác nhận xóa <br><b style="line-height: 40px">${this.admin.name}</b></span>`,
                 text: "Hành động này không thể hoàn tác!",
                 icon: 'warning',
                 showCancelButton: true,
@@ -56,7 +56,7 @@ export default {
                     if (res.status === 200) {
                         this.$store.dispatch("criteriaGroup/fetchCriteriaGroupList");
                         await Swal.fire({
-                            title: `Bạn đã xoá ${this.admin.name} thành công!`,
+                            title: `<span style="font-weight: normal">Bạn đã xoá</span> ${this.admin.name} <span style="font-weight: normal">thành công!</span>`,
                             timerProgressBar: true,
                             timer: 1500,
                             icon: "success",

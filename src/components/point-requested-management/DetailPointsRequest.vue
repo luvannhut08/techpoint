@@ -49,11 +49,11 @@
               @click="closeModal(0)">
         Đóng
       </button>
-      <button class="btn w-24 mr-4 text-white bg-rose-400" href="javascript:;"
+      <button v-if="this.dataDetail.status === 0" class="btn w-24 mr-4 text-white bg-rose-400" href="javascript:;"
               type="button" @click="openModalApprove(2)">
         Từ chối
       </button>
-      <button class="btn w-24 mr-4 text-white bg-green-400" href="javascript:;"
+      <button v-if="this.dataDetail.status === 0" class="btn w-24 mr-4 text-white bg-green-400" href="javascript:;"
               type="button" @click="openModalApprove(1)">
         Duyệt
       </button>

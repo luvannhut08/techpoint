@@ -3,9 +3,13 @@
                        :selected-time="selectedTime"/>
   <ModalConfirmApprove :is-open="isModalConfirmOpen" :on-close="closeModalConfirm" :data-detail="dataDetail"
                        :selected-time="selectedTime" :status="status"/>
-  <div class="scroll-view">
+  <div v-if="dataPage.length <= 0" class="text-sky-700 flex flex-col items-center justify-center p-40 font-medium text-2xl">
+    <img class="w-16 h-16 mb-4" src="/src/assets/icons/icons8-empty-box-64.png" alt="">
+    <span>Không có yêu cầu đổi điểm nào!</span>
+  </div>
+  <div v-else :class="{'scroll-view': dataPage.length >= 7}">
     <table class="table text-white font-medium">
-      <thead class="text-white">
+      <thead class="text-white sticky top-0">
       <tr>
         <th></th>
         <th>Người tích điểm</th>
@@ -15,7 +19,7 @@
         <th></th>
       </tr>
       </thead>
-      <tbody class="text-sky-800 font-bold overflow-y-scroll scroll-view">
+      <tbody class="text-sky-800 font-bold">
       <tr v-for="(item, index) in dataPage" :key="index">
         <td>
           <button class="flex items-center" @click="openModalDetail(item)">
@@ -167,7 +171,6 @@ tbody {
     border-color: #F1F5F9;
     border-bottom-width: 6px;
     min-height: 84px;
-    padding: 0 0.75rem 0 0.75rem;
 }
 
 .table th {

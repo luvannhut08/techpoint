@@ -18,7 +18,7 @@
                         mode="out-in"
                         name="fade"
                 >
-                    <div class="p-5 h-full">
+                    <div class="pt-5 h-full">
                         <label class="text-start text-base text-orange-800 leading-10 w-full z-10">Chọn người đánh giá
                             nhóm
                             <b>{{ activeGroup.name }}</b> </label>
@@ -29,6 +29,7 @@
                                                   @change-selection="setSelectedAdmins"
                             />
                         </div>
+                        <ErrorMessage name="" class="text-red-500 font-bold block text-center text-lg">{{ errorMessage[0] }}</ErrorMessage>
                     </div>
                 </transition>
                 <div class="flex justify-center mt-4">
@@ -56,7 +57,8 @@ export default {
     props: ["excludedAdmins", "activeGroup", "isOpen", "onClose"],
     data() {
         return {
-            selectedAdmins: []
+            selectedAdmins: [],
+            errorMessage: []
         }
     },
     computed: {
@@ -78,22 +80,14 @@ export default {
         },
         async addNewAdmins() {
             if (this.selectedAdmins.length === 0) {
-                this.closeModal()
-                await Swal.fire({
-                        title: 'Không người đánh giá nào được thêm!',
-                        timerProgressBar: true,
-                        icon: "error",
-                        timer: 1500,
-
-                    }
-                )
+                this.errorMessage.push('Vui lòng chọn ít nhất 1 người')
                 return
             }
             const res = await CriteriaGroupsApi.addAdmins(this.activeGroup.id, {adminIds: this.selectedAdmins})
             if (res.status === 200) {
                 this.closeModal()
                 await Swal.fire({
-                    title: 'Thêm người đánh giá thành công!',
+                    title: '<span style="font-weight: normal; line-height: 35px">Thêm người đánh giá tiêu chí <br> thành công!</span>',
                     timerProgressBar: true,
                     icon: "success",
                     timer: 1500
@@ -109,6 +103,7 @@ export default {
             }
         },
         closeModal() {
+            this.errorMessage = []
             this.resetSelectedAdmins()
             this.onClose()
         },

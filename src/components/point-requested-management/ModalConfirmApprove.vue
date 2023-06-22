@@ -5,7 +5,7 @@
         <img v-if="status === 2" src="/src/assets/images/bug-brown.gif" alt="🤔" width="60" height="60">
         <img v-else src="/src/assets/images/consider.gif" alt="🤔" width="60" height="60">
       </picture>
-      <div class="text-3xl mt-5">Xác nhận {{ status === 1 ? "phê duyệt" : "từ chối" }} yêu cầu tích điểm của <span
+      <div class="text-3xl mt-5 flex flex-col">Xác nhận {{ status === 1 ? "phê duyệt" : "từ chối" }} <br> yêu cầu tích điểm của <span
           class="font-medium">{{ this.dataDetail.user?.name }}</span>
       </div>
     </div>
@@ -38,44 +38,61 @@ export default {
   computed: {
     ...mapGetters('auth', ["uid", "username"])
   },
+  data() {
+    return {
+      isSubmitting: false
+    }
+  },
   methods: {
     closeModal() {
       this.onClose()
     },
     async updateStatusPointRequest() {
+      if (this.isSubmitting) {
+        return
+      }
+      this.isSubmitting = true;
+
       let params = {
         id: this.dataDetail.id,
         status: this.status,
         updateAt: this.selectedTime,
         approveByUserId: this.uid
       }
-      const res = await PointsExchange.updateStatus((this.$h.convertJsonToFormData(params)))
-      this.$emit("clicked", false)
-      if (res.status === 200) {
-        this.closeModal()
-        this.$store.dispatch('pointsExchange/fetchPointsRequestedList')
-        if (params.status === 1) {
-          await Swal.fire({
-            title: `<span style="font-weight: normal"><b>${this.dataDetail.user?.name}</b> đã được tích <span><b>${this.dataDetail.point}</span>`,
-            timerProgressBar: true,
-            icon: "success",
-            didOpen: () => {
-              const titleElement = document.querySelector('.swal2-title');
-              titleElement.style.lineHeight = ('1');
-            }
-          })
-        } else {
-          await Swal.fire({
-            title: `<span style="font-weight: normal">Từ chối yêu cầu tích điểm thành công</span>`,
-            timerProgressBar: true,
-            icon: "success",
-            didOpen: () => {
-              const titleElement = document.querySelector('.swal2-title');
-              titleElement.style.lineHeight = ('1');
-            }
-          })
+      try {
+        const res = await PointsExchange.updateStatus((this.$h.convertJsonToFormData(params)))
+        this.$emit("clicked", false)
+        if (res.status === 200) {
+          this.closeModal()
+          this.$store.dispatch('pointsExchange/fetchPointsRequestedList')
+          if (params.status === 1) {
+            await Swal.fire({
+              title: `<span style="font-weight: normal"><b>${this.dataDetail.user?.name}</b> đã được tích <span><b>${this.dataDetail.point}</span>`,
+              timerProgressBar: true,
+              icon: "success",
+              timer: 3000,
+              didOpen: () => {
+                const titleElement = document.querySelector('.swal2-title');
+                titleElement.style.lineHeight = ('1');
+              }
+            })
+          } else {
+            await Swal.fire({
+              title: `<span style="font-weight: normal">Từ chối yêu cầu tích điểm <br> thành công</span>`,
+              timerProgressBar: true,
+              icon: "success",
+              timer: 3000,
+              didOpen: () => {
+                const titleElement = document.querySelector('.swal2-title');
+                titleElement.style.lineHeight = ('1');
+              }
+            })
+          }
+          this.onClose();
         }
-        this.onClose()
+      }catch (error) {
+      } finally {
+        this.isSubmitting = false
       }
     }
   }

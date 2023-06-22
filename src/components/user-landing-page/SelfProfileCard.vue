@@ -22,14 +22,14 @@
             <img
               :src="avatarUrl"
               alt=""
-              class="w-16 aspect-square rounded-full object-cover ring-2 ring-[#354259] cursor-pointer"
+              class="w-16 aspect-square rounded-full object-cover ring-2 ring-[#354259] cursor-pointer mr-3"
               @click="toggleLogout"
             />
             <img
               v-if="isTop1 || isTop2 || isTop3"
               :src="getIconUrl(selfPointInfo.rank)"
               alt=""
-              class="h-9 w-12 absolute -top-1 right-10"
+              class="h-9 w-12 absolute top-8 right-1"
             />
         </div>
         <img v-if="showLogout" @click="handleLogout" class="ml-32 w-36 cursor-pointer transition-transform transform hover:scale-110" src="/src/assets/images/logout.png" />
@@ -77,16 +77,16 @@ export default {
 
         getIconUrl(rank) {
             if (rank === 1) {
-                return "/src/assets/images/cup1.png";
+                return ("src/assets/images/cup1.png");
             } else if (rank === 2) {
-                return "/src/assets/images/cup2.png";
+                return ("src/assets/images/cup2.png");
             } else if (rank === 3) {
-                return "/src/assets/images/cup3.png";
+                return ("src/assets/images/cup3.png");
             } else {
                 return "";
             }
-        },
-    },
+        }
+    }
 };
 </script>
 

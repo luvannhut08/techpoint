@@ -27,6 +27,7 @@ export default {
     data() {
         return {
             accumulatePoints: { ...this.initialAccumulatePoints },
+            isRequesting: false
         }
     },
     methods: {
@@ -35,22 +36,34 @@ export default {
             this.onClose()
         },
         async createRequest() {
+          if (this.isRequesting) {
+            return;
+          }
+          this.isRequesting = true;
+          try {
             let param = {
-                point : this.criterion.point,
-                userId: this.getUserInfo.id,
-                criteriaId: this.criterion.id
+              point: this.criterion.point,
+              userId: this.getUserInfo.id,
+              criteriaId: this.criterion.id
             }
             await PointsExchange.create(this.$h.convertJsonToFormData(param))
             this.onClose()
             await Swal.fire({
-                title: `<span style="font-weight: normal">Gửi yêu cầu tích điểm thành công</span>`,
-                timerProgressBar: true,
-                icon: "success",
-                didOpen: () => {
-                    const titleElement = document.querySelector('.swal2-title');
-                    titleElement.style.lineHeight = ('1');
-                }
+              title: `<span style="font-weight: normal">Gửi yêu cầu tích điểm thành công</span>`,
+              timerProgressBar: true,
+              timer: 3000,
+              icon: "success",
+              didOpen: () => {
+                const titleElement = document.querySelector('.swal2-title');
+                titleElement.style.lineHeight = ('1');
+              }
             })
+          } catch (error){
+
+          }finally {
+            this.isRequesting = false;
+            this.onClose();
+          }
         },
         reset() {
             this.accumulatePoints = { ...this.initialAccumulatePoints }
@@ -59,7 +72,7 @@ export default {
     computed: {
         ...mapGetters('auth', ['getUserInfo'])
     }
-};
+}
 </script>
 <style scoped>
 .padding-position {

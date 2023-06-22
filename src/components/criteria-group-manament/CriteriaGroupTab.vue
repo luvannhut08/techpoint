@@ -22,7 +22,6 @@
 import Swal from 'sweetalert2'
 import CriteriaGroupsApi from "@/api/CriteriaGroupsApi";
 
-
 export default {
     name: "CriteriaGroupTab",
     props: ["group", "onClick"],

@@ -3,9 +3,13 @@
                       :gift-name="giftName" :selected-time="selectedTime"/>
   <ApprovalGiftRequest :is-open="isModalOpen" :on-close="closeModal" :request-id="requestedId"
                        :selected-time="selectedTime"/>
-  <div class="scroll-view">
+  <div v-if="dataPage.length <= 0" class="text-sky-700 flex flex-col items-center justify-center p-40 font-medium text-2xl">
+    <img class="w-16 h-16 mb-4" src="/src/assets/icons/icons8-empty-box-64.png" alt="">
+    <span>Không có yêu cầu đổi quà nào!</span>
+  </div>
+  <div v-else :class="{'scroll-view': dataPage.length >= 7}">
     <table class="table text-white font-medium">
-      <thead class="text-white">
+      <thead class="text-white sticky top-0">
       <tr>
         <th></th>
         <th>Người đổi quà</th>
@@ -34,7 +38,7 @@
             Gửi quà
           </button>
           <i class="fa-regular fa-circle-check fa-2xl py-3" style="color: #23da16;" v-if="item.status === 1"></i>
-          <i class="fa-regular fa-circle-xmark fa-2xl py-3" style="color: #f20d0d;" v-if="item.status === 2"></i>
+          <i class="fa-regular fa-circle-xmark fa-2xl py-3" style="color: #f20d0d;" v-else-if="item.status === 2 || item.status === 3"></i>
         </td>
       </tr>
       </tbody>

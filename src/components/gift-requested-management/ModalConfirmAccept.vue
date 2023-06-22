@@ -15,7 +15,7 @@
       >
         Hủy
       </button>
-      <button type="button" class="btn bg-orange-400 text-white w-24" @click="approveRequest">OK</button>
+      <button type="button" class="btn bg-orange-400 text-white w-24" @click="approveRequest" :disabled="isRequesting">OK</button>
     </div>
   </Modal>
 </template>
@@ -29,31 +29,46 @@ export default {
   name: "ModalConfirmAccept",
   props: ["isOpen", "onClose", "requestId", "giftName", "dataDetail", "selectedTime"],
   emits: ["clicked"],
+  data() {
+    return {
+      isRequesting: false
+    }
+  },
   methods: {
     closeModal() {
       this.onClose()
     },
     async approveRequest() {
-      let params = {
-        id: this.requestId,
-        status: 1,
-        updateAt: this.selectedTime
+      if (this.isRequesting) {
+        return;
       }
-      const res = await GiftsExchange.approveRequest((this.$h.convertJsonToFormData(params)))
-      this.$emit("clicked", false)
-      if (res.status === 200) {
-        this.closeModal()
-        this.$store.dispatch('giftsExchange/fetchGiftsExchangeList')
-        await Swal.fire({
-          title: `<span style="font-weight: normal">Quà tặng <span><b>${this.giftName === undefined ? this.dataDetail.gift?.name : this.giftName}</b></span>  đã được đổi </span>  <span style="font-weight: normal">thành công!</span>`,
-          timerProgressBar: true,
-          icon: "success",
-          didOpen: () => {
-            const titleElement = document.querySelector('.swal2-title');
-            titleElement.style.lineHeight = ('1');
-          }
-        })
-        this.onClose()
+      this.isRequesting = true;
+      try {
+        let params = {
+          id: this.requestId,
+          status: 1,
+          updateAt: this.selectedTime
+        }
+        const res = await GiftsExchange.approveRequest((this.$h.convertJsonToFormData(params)))
+        this.$emit("clicked", false)
+        if (res.status === 200) {
+          this.closeModal()
+          this.$store.dispatch('giftsExchange/fetchGiftsExchangeList')
+          await Swal.fire({
+            title: `<span style="font-weight: normal">Quà tặng <span><b>${this.giftName === undefined ? this.dataDetail.gift?.name : this.giftName}</b></span>  đã được đổi </span>  <span style="font-weight: normal">thành công!</span>`,
+            timerProgressBar: true,
+            timer: 3000,
+            icon: "success",
+            didOpen: () => {
+              const titleElement = document.querySelector('.swal2-title');
+              titleElement.style.lineHeight = ('1');
+            }
+          })
+        }
+      } catch (error) {
+      } finally {
+        this.isRequesting = false;
+        this.onClose();
       }
     }
   }
@@ -62,6 +77,6 @@ export default {
 
 <style scoped>
 .size-height {
-  padding-top: 14%;
+    padding-top: 14%;
 }
 </style>

@@ -133,7 +133,7 @@ export default {
   }
 }
 </script>
-<style>
+<style scoped>
 .icon-search {
     background: url("src/assets/images/icons8-search-32.png") no-repeat right;
     width: 30px;

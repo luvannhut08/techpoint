@@ -11,7 +11,7 @@
                 class=" object-cover rounded-md h-52 mt-2 w-full"
                 data-action="zoom"
         />
-        <h3 class="text-lg font-medium mt-2 text-center">{{ gift.name }}</h3>
+        <h3 class="truncate text-lg font-medium mt-2 text-center">{{ gift.name }}</h3>
         <div class="flex mr-10 ml-10 justify-between ">
             <div class="flex items-end mt-2 gap-2 ml-5">
                 <svg class="w-8 h-8 text-pink-400 fill-pink-200" fill="" stroke="currentColor"
@@ -78,10 +78,14 @@ export default {
         },
         async onDelete() {
             const result = await Swal.fire({
-                title: 'Bạn có chắc muốn xóa?',
+                title:`<span style="font-weight: normal">Xác nhận xóa</span> <b>${this.gift.name}?</b>`,
                 text: "Hành động này không thể hoàn tác!",
                 icon: 'warning',
                 showCancelButton: true,
+                didOpen: () => {
+                    const titleElement = document.querySelector('.swal2-title');
+                    titleElement.style.lineHeight = '1';
+                },
                 confirmButtonColor: '#9a3412',
                 cancelButtonColor: '#4b5563',
                 confirmButtonText: 'OK',
@@ -99,7 +103,7 @@ export default {
                                 title: `<span style="font-weight: normal">Bạn đã xoá</span> <b>${this.gift.name}</b> <span style="font-weight: normal">thành công!</span>`,
                                 timerProgressBar: true,
                                 icon: "success",
-                                timer: 5000,
+                                timer: 1500,
                                 didOpen: () => {
                                     const titleElement = document.querySelector('.swal2-title');
                                     titleElement.style.lineHeight = '1';

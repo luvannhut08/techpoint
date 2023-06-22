@@ -41,7 +41,7 @@
                             <div class="mt-4 mx-auto ml-52">
                                 <div class="flex items-end">
                                     <label
-                                        class="text-lg mr-11 w-48 leading-6 font-medium text-orange-700"
+                                        class="text-lg mr-4 leading-6 font-medium text-orange-700 w-1/3"
                                         for="criterion-name"
                                     >
                                         Tên tiêu chí
@@ -49,14 +49,14 @@
                                     <input
                                         id="criterion-name"
                                         v-model="criterion.name"
-                                        class="mr-9 v-text-field font-medium bg-transparent border-none w-full text-gray-700 py-1 px-2 leading-tight focus:outline-none"
+                                        class="w-2/3 input-no-spinner mr-9 v-text-field font-medium bg-transparent border-none w-full text-gray-700 py-1 px-2 leading-tight focus:outline-none"
                                         required
                                         type="text"
                                     />
                                 </div>
                                 <div class="flex mt-4 items-end">
                                     <label
-                                        class="w-60 text-lg mr-4 leading-6 font-medium text-orange-700"
+                                        class="text-lg mr-4 leading-6 font-medium text-orange-700 w-1/3"
                                         for="criterion-point"
                                     >
                                         Số điểm tương ứng
@@ -64,15 +64,16 @@
                                     <input
                                         id="criterion-point"
                                         v-model="criterion.point"
-                                        class="mr-9 v-text-field font-medium bg-transparent border-none w-full text-gray-700 py-1 px-2 leading-tight focus:outline-none"
+                                        class="w-2/3 input-no-spinner mr-9 v-text-field font-medium bg-transparent border-none w-full text-gray-700 py-1 px-2 leading-tight focus:outline-none"
                                         required
                                         type="number"
                                         min="0"
                                         pattern="[0-9]+"
+                                        v-on:keydown="preventE"
                                     />
                                 </div>
                                 <div class="mt-4 flex">
-                                    <div class="mr-7">
+                                    <div class="mr-7" style="width: 375px">
                                         <label
                                             class="text-lg leading-6 font-medium text-orange-700"
                                             for="criterion-description"
@@ -82,7 +83,7 @@
                                         <textarea
                                             id="criterion-description"
                                             v-model="criterion.description"
-                                            class="custom-textarea ml-4 text-justify mt-4 bg-transparent w-11/12 h-72 leading-tight rounded border border-gray-400 overflow-y-scroll scroll-view"
+                                            class="custom-textarea ml-4 text-justify mt-4 bg-transparent w-11/12 h-72 leading-tight rounded border border-black overflow-y-scroll scroll-view"
                                             :required="action === 'update' || action === 'create'"
                                             v-if="action === 'update' || action === 'create'"
                                         ></textarea>
@@ -199,6 +200,10 @@ export default {
     props: ["isOpen", "onClose", "initialCriterion", "action", "activeGroup"],
     methods: {
         async saveCriterion() {
+            if (this.isCreatingCriterion) {
+                 return
+             }
+             this.isCreatingCriterion = true;
             this.errors = {};
             this.showError = false;
 
@@ -246,8 +251,11 @@ export default {
                             titleElement.style.lineHeight = "1";
                         },
                     });
+                this.isCreatingCriterion = false;
+                this.reset();
                 }
             } catch (e) {
+                this.isCreatingCriterion = false;
                 this.errors = e.data.errors;
             }
         },
@@ -258,6 +266,11 @@ export default {
             this.tmpImgUrl = URL.createObjectURL(files[0])
             this.checkDelete = "update"
             this.checkFile = 1
+        },
+        preventE(event) {
+            if (event.key === "e" || event.key === "E") {
+                event.preventDefault();
+            }
         },
         closeModal() {
             this.onClose();
@@ -331,6 +344,28 @@ export default {
 };
 </script>
 <style scoped>
+.input-no-spinner {
+    -moz-appearance: textfield;
+    background-size: 30px;
+    outline: none;
+    padding: 10px;
+    height: 30px;
+}
+
+.input-no-spinner:focus {
+    border-bottom: 1px solid #7c2d12;
+    outline: none !important;
+    outline: 0 !important;
+    outline: transparent !important;
+    box-shadow: none !important;
+    border-bottom: 2px solid #9A3412 !important;
+}
+
+.custom-textarea:focus {
+    border: 2px solid #9A3412 !important;
+    box-shadow: none !important;
+}
+
 textarea {
     font-family: 'Marck Script', cursive;
     font-size: 17px;

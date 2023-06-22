@@ -78,7 +78,7 @@
                         disabled="disabled"
                         id="criterion-description"
                         v-model="criterion.description"
-                        class="ml-4  custom-textarea border-none bg-transparent w-80 h-72 leading-tight overflow-y-scroll scroll-view pointer-events-none border-transparent focus:outline-none"
+                        class="ml-4 custom-textarea border-none bg-transparent w-80 h-72 leading-tight overflow-y-scroll scroll-view border-transparent focus:outline-none"
                     ></textarea>
                   </div>
                   <div class="mt-3 mr-9">

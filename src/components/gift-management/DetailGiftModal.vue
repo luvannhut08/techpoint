@@ -23,7 +23,7 @@
                   <label class="text-2xl w-64 font-medium text-orange-900"
                          for="gift-name">Tên quà tặng</label>
                   <input id="gift-name" v-model="gift.name"
-                         class="text-2xl font-medium bg-transparent border-none v-text-field  focus:border-orange-500 decoration-orange-800 focus:ring focus:ring-orange-200 w-2/4 text-gray-700 py-1 px-2 leading-tight focus:outline-none"
+                         class="input-no-spinner text-2xl font-medium bg-transparent border-none v-text-field  focus:border-orange-500 decoration-orange-800 focus:ring focus:ring-orange-200 w-2/4 text-gray-700 py-1 px-2 leading-tight focus:outline-none"
                          required
                          type="text">
                 </div>
@@ -34,7 +34,8 @@
                         <label class="w-64 mt-1 text-lg font-medium text-orange-700"
                                for="gift-point">Số điểm tương ứng</label>
                         <input id="gift-point" v-model="gift.point"
-                               class=" w-32 v-text-field font-medium bg-transparent border-none focus:border-orange-500 decoration-orange-800 focus:ring focus:ring-orange-200 py-1 px-2 leading-tight focus:outline-none"
+                               v-on:keydown="preventE"
+                               class="input-no-spinner w-32 v-text-field font-medium bg-transparent border-none focus:border-orange-500 decoration-orange-800 focus:ring focus:ring-orange-200 py-1 px-2 leading-tight focus:outline-none"
                                required
                                min="0"
                                type="number">
@@ -44,7 +45,8 @@
                       <label class="w-64 text-lg font-medium text-orange-700"
                              for="gift-point">Số lượng quà</label>
                       <input id="gift-point" v-model="gift.quantity"
-                             class=" w-32 v-text-field font-medium bg-transparent border-none focus:border-orange-500 decoration-orange-800 focus:ring focus:ring-orange-200 py-1 px-2 leading-tight focus:outline-none"
+                             v-on:keydown="preventE"
+                             class="input-no-spinner w-32 v-text-field font-medium bg-transparent border-none focus:border-orange-500 decoration-orange-800 focus:ring focus:ring-orange-200 py-1 px-2 leading-tight focus:outline-none"
                              required
                              min="0"
                              type="number">
@@ -121,8 +123,8 @@
             Huỷ
           </button>
           <button class=" w-24 bg-orange-800 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded"
-                  @click="updateGift">
-            {{ actionModal == "UPDATE" ? "Cập nhật" : "Thêm" }}
+                  @click="updateGift" :disabled="isSaving">
+            {{ actionModal == "UPDATE" ? "Cập nhật" : "Lưu" }}
           </button>
         </div>
       </ModalBody>
@@ -148,12 +150,17 @@ export default {
       avatarDefault: AvatarDefault,
       checkDelete: this.actionModal,
       errorImages: [],
-      checkFile: 0
+      checkFile: 0,
+      isSaving: false
     }
   },
   props: ["isOpen", "onClose", "initialGift", "actionModal"],
   methods: {
     async updateGift() {
+      if (this.isSaving) {
+        return
+      }
+      this.isSaving = true;
       this.errors = {}
       this.showError = false
       if (!this.gift.name || !this.gift.point || !this.gift.description) {
@@ -179,6 +186,8 @@ export default {
           }
         } catch (e) {
           this.errors = e.data.errors
+        } finally {
+          this.isSaving = false;
         }
       } else {
         try {
@@ -216,6 +225,11 @@ export default {
       this.tmpImgUrl = URL.createObjectURL(files[0])
       this.checkDelete = "UPDATE"
       this.checkFile = 1
+    },
+    preventE(event) {
+      if (event.key === "e" || event.key === "E") {
+        event.preventDefault();
+      }
     },
     closeModal() {
       this.reset()
@@ -272,6 +286,31 @@ export default {
 }
 </script>
 <style scoped>
+.input-no-spinner {
+  -moz-appearance: textfield;
+  background-size: 30px;
+  outline: none;
+  padding: 10px;
+  height: 30px;
+}
+
+.input-no-spinner:focus {
+  border-bottom: 1px solid #7c2d12;
+  outline: none !important;
+  outline: 0 !important;
+  outline: transparent !important;
+  box-shadow: none !important;
+  border-bottom: 2px solid #9A3412 !important;
+}
+
+.custom-textarea:focus {
+  outline: none !important;
+  outline: 0 !important;
+  outline: transparent !important;
+  box-shadow: none !important;
+  border: 2px solid #9A3412 !important;
+}
+
 .upload-img {
   top: 80%;
   left: 40%;

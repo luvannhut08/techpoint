@@ -160,6 +160,7 @@ export default {
           title: `<span style="font-weight: normal">Rất tiếc<br> Số quà còn lại không đủ</span> <br> <span style="font-weight: normal">Vui lòng đổi tối đa</span> <b class="text-red-400" style="font-weight: normal">${this.gift.quantity}</b> <b>${this.gift.name}</b><span> </span>`,
           timerProgressBar: true,
           icon: "error",
+          timer: 3000,
           didOpen: () => {
             const titleElement = document.querySelector('.swal2-title');
             titleElement.style.lineHeight = ('1');
@@ -171,6 +172,7 @@ export default {
           title: `<span style="font-weight: normal">Rất tiếc, số điểm của bạn không đủ để đổi</span> <b class="text-red-400" style="font-weight: normal">${this.quantity}</b> <b>${this.gift.name}</b><span> </span>`,
           timerProgressBar: true,
           icon: "error",
+          timer: 3000,
           didOpen: () => {
             const titleElement = document.querySelector('.swal2-title');
             titleElement.style.lineHeight = ('1');
@@ -194,6 +196,7 @@ export default {
             title: `<span style="font-weight: normal">Gửi yêu cầu đổi</span> <b class="text-red-400" style="font-weight: normal">${this.quantity}</b> <b >${this.gift.name}</b><br><span style="font-weight: normal"> thành công</span><span>`,
             timerProgressBar: true,
             icon: "success",
+            timer: 3000,
             didOpen: () => {
               const titleElement = document.querySelector('.swal2-title');
               titleElement.style.lineHeight = ('1');
@@ -202,8 +205,9 @@ export default {
         }
         else {
           await Swal.fire({
-            title: `<span style="font-weight:   normal">Có lỗi trong quá trình đổi quà</span>`,
+            title: `<span style="font-weight: normal">Có lỗi trong quá trình đổi quà</span>`,
             timerProgressBar: true,
+            timer: 3000,
             icon: "Error",
             didOpen: () => {
               const titleElement = document.querySelector('.swal2-title');
@@ -220,6 +224,11 @@ export default {
   },
   computed: {
     ...mapGetters('auth', ['getUserInfo'])
+  },
+  watch: {
+    isOpen() {
+      this.getPointUser()
+    }
   }
 }
 </script>

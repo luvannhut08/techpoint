@@ -81,6 +81,7 @@ export default {
           await Swal.fire({
             title: `Bạn đã nhận món quà <span class="font-medium">${this.dataDetail?.gift?.name}</span>`,
             timerProgressBar: true,
+            timer: 3000,
             icon: "success",
             didOpen: () => {
               const titleElement = document.querySelector('.swal2-title')
@@ -93,9 +94,10 @@ export default {
         this.closeModal()
         if (res.status === 200) {
           await Swal.fire({
-            title: `Bạn đã hủy yêu cầu đổi món quà <span class="font-medium">${this.dataDetail?.gift?.name}</span>`,
+            title: `<span style="font-weight: normal">Bạn đã hủy yêu cầu đổi</span> <br><span>${this.dataDetail?.gift?.name}</span>`,
             timerProgressBar: true,
             icon: "success",
+            timer: 3000,
             didOpen: () => {
               const titleElement = document.querySelector('.swal2-title')
               titleElement.style.lineHeight = ('1')

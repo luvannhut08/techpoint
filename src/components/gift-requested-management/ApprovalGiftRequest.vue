@@ -75,7 +75,8 @@ export default {
       errors: {},
       showError: false,
       dataDetail: {},
-      isModalConfirmOpen: false
+      isModalConfirmOpen: false,
+      isSendingGift: false
     }
   },
   methods: {
