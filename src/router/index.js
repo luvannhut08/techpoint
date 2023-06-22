@@ -9,7 +9,6 @@ import {isEmpty} from "lodash";
 import Login from "@/views/auth/Login.vue";
 import UserLayout from "@/layouts/user/UserLayout.vue";
 import LandingPage from "@/views/viewuser/LandingPage.vue";
-import IntermediatePage from "@/views/auth/IntermediatePage.vue"
 import GiftsRequested from "@/views/gifts-requested-management/Main.vue"
 import PointsRequested from "@/views/points-requested-management/Main.vue"
 import Main from "@/views/viewuser/gift-page/Main.vue";
@@ -95,11 +94,6 @@ const routes = [
         path: '/permission-page',
         name: 'permission-page',
         component: Error403Page
-    },
-    {
-        path: '/intermediate',
-        name: 'intermediate',
-        component: IntermediatePage
     },
     {
         path: '/gift-user',
