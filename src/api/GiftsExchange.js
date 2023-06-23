@@ -30,6 +30,10 @@ export const giftExchangeConfirmRejectGift = async (params) => {
   return await baseAxios.put(`${ENDPOINT}/user-reject `, params)
 }
 
+export const getHistoryGiftsDetailUser = async (userId) => {
+  return await baseAxios.get(`${ENDPOINT}/history-exchange-gift?userId=` + userId)
+}
+
 export default {
   getAll,
   getDetailRequest,
@@ -37,5 +41,6 @@ export default {
   approveRequest,
   giftExchangeHistoryMe,
   giftExchangeConfirmReceiveGift,
-  giftExchangeConfirmRejectGift
+  giftExchangeConfirmRejectGift,
+  getHistoryGiftsDetailUser
 }

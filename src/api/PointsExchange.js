@@ -14,8 +14,13 @@ export const create = async (param) => {
   return await baseAxios.post(`${ENDPOINT}/create`, param)
 }
 
+export const getHistoryPointsDetailUser = async (userId) => {
+  return await baseAxios.get(`${ENDPOINT}/history-accumulate-point?userId=` + userId)
+}
+
 export default {
   getAll,
   updateStatus,
-  create
+  create,
+  getHistoryPointsDetailUser
 }

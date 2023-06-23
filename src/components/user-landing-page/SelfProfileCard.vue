@@ -25,12 +25,6 @@
               class="w-16 aspect-square rounded-full object-cover ring-2 ring-[#354259] cursor-pointer mr-3"
               @click="toggleLogout"
             />
-            <img
-              v-if="isTop1 || isTop2 || isTop3"
-              :src="getIconUrl(selfPointInfo.rank)"
-              alt=""
-              class="h-9 w-12 absolute top-8 right-1"
-            />
         </div>
         <img v-if="showLogout" @click="handleLogout" class="ml-32 w-36 cursor-pointer transition-transform transform hover:scale-110" src="/src/assets/images/logout.png" />
     </div>
@@ -51,16 +45,7 @@ export default {
             selfPointInfo: "point/getSelfPointInfo",
             username: "auth/username",
             avatarUrl: "auth/avatarUrl",
-        }),
-        isTop1() {
-            return this.selfPointInfo.rank === 1;
-        },
-        isTop2() {
-            return this.selfPointInfo.rank === 2;
-        },
-        isTop3() {
-            return this.selfPointInfo.rank === 3;
-        },
+        })
     },
     methods: {
         filterGifts() {
@@ -73,19 +58,7 @@ export default {
         toggleLogout() {
             this.showLogout = !this.showLogout;
         },
-        ...mapActions("auth", ["logout"]),
-
-        getIconUrl(rank) {
-            if (rank === 1) {
-                return ("src/assets/images/cup1.png");
-            } else if (rank === 2) {
-                return ("src/assets/images/cup2.png");
-            } else if (rank === 3) {
-                return ("src/assets/images/cup3.png");
-            } else {
-                return "";
-            }
-        }
+        ...mapActions("auth", ["logout"])
     }
 };
 </script>

@@ -19,6 +19,7 @@ import {
   DropdownFooter,
   DropdownDivider,
 } from "./dropdown";
+import { TabGroup, TabList, Tab, TabPanels, TabPanel } from "./tab";
 import LucideIcons from "./lucide";
 
 export default (app) => {
@@ -37,6 +38,11 @@ export default (app) => {
   app.component("DropdownHeader", DropdownHeader);
   app.component("DropdownFooter", DropdownFooter);
   app.component("DropdownDivider", DropdownDivider);
+  app.component("TabGroup", TabGroup);
+  app.component("TabList", TabList);
+  app.component("Tab", Tab);
+  app.component("TabPanels", TabPanels);
+  app.component("TabPanel", TabPanel);
   app.component("LoadingIcon", LoadingIcon);
   app.component("TomSelect", TomSelect);
   app.component("Dropzone", Dropzone);
