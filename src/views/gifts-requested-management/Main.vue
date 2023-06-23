@@ -37,8 +37,8 @@
                   @click="openModalConfirm(item.id, item.gift?.name)">
             Gửi quà
           </button>
-          <i class="fa-regular fa-circle-check fa-2xl py-3" style="color: #23da16;" v-if="item.status === 1"></i>
-          <i class="fa-regular fa-circle-xmark fa-2xl py-3" style="color: #f20d0d;" v-else-if="item.status === 2 || item.status === 3"></i>
+          <i class="fa-regular fa-circle-check fa-2xl py-3" style="color: #23da16;" v-if="item.status === 1 || item.status === 2"></i>
+          <i class="fa-regular fa-circle-xmark fa-2xl py-3" style="color: #f20d0d;" v-else-if="item.status === 3"></i>
         </td>
       </tr>
       </tbody>
