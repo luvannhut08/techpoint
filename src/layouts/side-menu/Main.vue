@@ -106,7 +106,7 @@
                 </nav>
                 <!-- END: Side Menu -->
                 <!-- BEGIN: Content -->
-                <div class="content bg-center bg-cover">
+                <div class="content bg-center bg-cover content-layout">
                     <router-view />
                 </div>
                 <!-- END: Content -->
@@ -173,6 +173,9 @@ export default {
 </script>
 
 <style>
+.content-layout {
+    padding: 2rem 3rem 7rem 3rem!important;
+}
 @media screen and (max-width: 1280px) {
     .responsive {
         display: none;

@@ -22,30 +22,36 @@
                 </div>
             </div>
         </div>
-        <div class="flex items-end mt-1 gap-2 mr-5">
-            <svg class="w-8 h-8 text-pink-400 fill-pink-200" fill="" stroke="currentColor"
-                 stroke-width={1.5}
-                 viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path
-                        d="M21 11.25v8.25a1.5 1.5 0 01-1.5 1.5H5.25a1.5 1.5 0 01-1.5-1.5v-8.25M12 4.875A2.625 2.625 0 109.375 7.5H12m0-2.625V7.5m0-2.625A2.625 2.625 0 1114.625 7.5H12m0 0V21m-8.625-9.75h18c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125h-18c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125z"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"/>
-            </svg>
-            <p class="text-base font-sans font-medium"> Số lượng quà tặng đang có </p>
-        </div>
-        <div class="flex items-end mt-2 gap-2 mr-5 ">
-            <svg class="w-8 h-8 fill-yellow-400 text-white" fill="none" stroke="currentColor"
-                 stroke-width={1.5}
-                 viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"/>
-            </svg>
-            <p class="text-base font-sans font-medium"> Số điểm tương ứng để đổi quà </p>
-        </div>
-        <div class="flex items-start justify-center mt-6">
+        <div class="flex items-start justify-center mt-10">
             <div class="w-full h-full">
                 <GiftBoard :gift-list="filledList"/>
+            </div>
+        </div>
+        <div class="flex mt-5 justify-end mr-44">
+            <div class="items-end mt-2 gap-2 mr-12">
+                <div class="flex items-center">
+                    <svg class="mr-3 w-8 h-8 text-pink-400 fill-pink-200" fill="" stroke="currentColor"
+                         stroke-width={1.5}
+                         viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                          d="M21 11.25v8.25a1.5 1.5 0 01-1.5 1.5H5.25a1.5 1.5 0 01-1.5-1.5v-8.25M12 4.875A2.625 2.625 0 109.375 7.5H12m0-2.625V7.5m0-2.625A2.625 2.625 0 1114.625 7.5H12m0 0V21m-8.625-9.75h18c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125h-18c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125z"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"/>
+                    </svg>
+                    <p class="text-base font-sans font-medium"> Số lượng quà tặng đang có </p>
+                </div>
+            </div>
+            <div class="items-end mt-2 gap-2">
+                <div class="flex items-center">
+                    <svg class="mr-3 w-8 h-8 fill-yellow-400 text-white" fill="none" stroke="currentColor"
+                         stroke-width={1.5}
+                         viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"/>
+                    </svg>
+                    <p class="text-base font-sans font-medium"> Số điểm tương ứng để đổi quà </p>
+                </div>
             </div>
         </div>
     </div>

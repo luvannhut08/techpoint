@@ -26,7 +26,6 @@ export default {
     async onDelete() {
       const result = await Swal.fire({
         title: '<span>Xác nhận xóa người đánh giá này?</span>',
-        text: "Hành động này không thể hoàn tác!",
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#9a3412',

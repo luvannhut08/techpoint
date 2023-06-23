@@ -26,7 +26,7 @@
               @click="toggleLogout"
             />
         </div>
-        <img v-if="showLogout" @click="handleLogout" class="ml-32 w-36 cursor-pointer transition-transform transform hover:scale-110" src="/src/assets/images/logout.png" />
+        <img v-if="showLogout" @click="handleLogout" class="-mt-2 ml-40 w-28 cursor-pointer transition-transform transform hover:scale-110" src="/src/assets/images/logout.png" />
     </div>
 </template>
 

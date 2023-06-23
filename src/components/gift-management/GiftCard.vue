@@ -79,7 +79,6 @@ export default {
         async onDelete() {
             const result = await Swal.fire({
                 title:`<span style="font-weight: normal">Xác nhận xóa</span> <b>${this.gift.name}</b><span style="font-weight: normal; font-size:25px ;line-height: 2">?</span>`,
-                text: "Hành động này không thể hoàn tác!",
                 icon: 'warning',
                 showCancelButton: true,
                 didOpen: () => {

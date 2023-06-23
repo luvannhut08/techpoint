@@ -12,7 +12,7 @@
       </button>
       <ModalHeader class="pb-8 pt-1">
         <h2 class="text-3xl text-orange-800 font-bold pl-8 absolute">
-          {{ actionModal == "UPDATE" ? "Chi tiết quà tặng" : "Tạo quà tặng" }}</h2>
+          {{ actionModal == "UPDATE" ? "Chi tiết quà tặng" : "Thêm mới quà tặng" }}</h2>
       </ModalHeader>
       <ModalBody>
         <div class="sm:flex sm:items-start">
@@ -202,7 +202,7 @@ export default {
             this.closeModal()
             this.$store.dispatch("gifts/fetchGifts")
             await Swal.fire({
-              title: `<span style="font-weight: normal">Tạo món quà thành công!</span>`,
+              title: `<span style="font-weight: normal">Thêm mới quà tặng thành công!</span>`,
               timerProgressBar: true,
               timer: 5000,
               icon: "success"

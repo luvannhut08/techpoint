@@ -7,9 +7,9 @@
         </svg>
     </div>
     <div class="font-special">
-        <div v-if="token" class="flex justify-end pt-44 pr-4">
+        <div v-if="token" class="flex justify-end pt-44 pr-4 ">
             <div class="right-align">
-                <div class="absolute top-4 right-6 z-10">
+                <div class="absolute top-3 right-6 ">
                     <SelfProfileCard @filter-gifts="updateMinValue"/>
                 </div>
             </div>
