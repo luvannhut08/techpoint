@@ -66,6 +66,22 @@
                       disabled="disabled"
                   />
                 </div>
+                <div class="flex mt-4 items-center">
+                  <label
+                      class="w-40 text-lg leading-6 font-medium text-orange-700"
+                      for="criterion-point"
+                  >
+                    Người đánh giá
+                  </label>
+                  <div v-for="admin in admins">
+                    <Tippy class="w-full truncate mt-1 ml-3 text-lg font-bold flex items-center" :content="admin.name" placement="bottom">
+                      <img :src="admin.avatarUrl"
+                           alt="Rounded avatar"
+                           class="w-11 h-11 rounded-full border-2 object-cover"
+                      >
+                    </Tippy>
+                  </div>
+                </div>
                 <div class="mt-4 flex">
                   <div class="mr-7">
                     <label
@@ -112,6 +128,9 @@
 
 <script>
 
+import CriterionApi from "@/api/CriterionApi";
+import CriteriaGroupsApi from "@/api/CriteriaGroupsApi";
+
 export default {
   name: "DetailCriterionModal",
   data() {
@@ -122,13 +141,23 @@ export default {
         groupId: this.action === "create" ? this.activeGroup.id : null,
       },
       tmpImgUrl: this.initialCriterion && this.initialCriterion.img ? this.initialCriterion.img : "",
-      isValidImage: true
-    };
+      isValidImage: true,
+      admins: []
+    }
   },
   props: ["isOpen", "onClose", "initialCriterion", "activeGroup"],
   methods: {
     closeModal() {
       this.onClose();
+    },
+    async getAdmins() {
+      const res = await CriteriaGroupsApi.getOne(this.initialCriterion.groupId)
+      this.admins = res.data.data.admins
+    }
+  },
+  watch: {
+    isOpen() {
+      this.getAdmins()
     }
   }
 };

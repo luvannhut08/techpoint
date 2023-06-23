@@ -1,6 +1,6 @@
 <template>
-  <div class="absolute -ml-4 flex justify-start px-8 py-4">
-    <svg class="w-8 h-8 p-1 stroke-[4] cursor-pointer rounded-full ring-2 hover:scale-125 transition-all" fill="none"
+  <div class="relative -ml-4 flex justify-start px-8 py-4">
+    <svg class="absolute mt-6 w-8 h-8 p-1 stroke-[4] cursor-pointer rounded-full ring-2 hover:scale-125 transition-all z-10" fill="none"
          stroke="currentColor" viewBox="0 0 24 24"
          xmlns="http://www.w3.org/2000/svg"
          @click="this.$router.push('/')">
@@ -8,14 +8,14 @@
     </svg>
   </div>
   <div class="font-special">
-    <div class="flex items-center justify-center absolute top-16 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-      <div class="ml-4 flex items-end justify-center">
-        <img alt="" class="w-20 aspect-square"
+    <div class="flex transform -mt-2">
+      <div class="ml-20 flex items-center justify-center">
+        <img alt="" class="w-16 aspect-square"
              src="https://www.eovietnam.com/wp-content/uploads/2020/11/h%E1%BB%99p-qu%C3%A0.png">
         <div class="text-5xl text-center">
           <span class="outlined-text text-pending">LỊCH SỬ ĐỔI QUÀ</span>
         </div>
-        <img alt="" class="w-20 aspect-square"
+        <img alt="" class="w-16 aspect-square"
              src="https://www.eovietnam.com/wp-content/uploads/2020/11/h%E1%BB%99p-qu%C3%A0.png">
       </div>
     </div>
@@ -27,7 +27,7 @@
     <div class="flex h-full">
       <div class="w-full p-10 pt-36">
         <div class="mt-10">
-          <div class="absolute flex justify-end mt-2 right-0 pr-44">
+          <div class="absolute flex justify-end -mt-32 right-0 pr-40">
             <input id="search" v-model="searchGiftName"
                    class="border-2 border-green-700 w-96 pl-10 rounded-lg shadow focus:outline-none focus:shadow-outline text-gray-600 font-medium"
                    placeholder="Nhập tên món quà cần tìm" type="text"
@@ -39,16 +39,16 @@
           </div>
           <div class="h-16">
           </div>
-          <div v-if="!hasGiftExchange" class="text-lg font-bold text-center mt-20">
+          <div v-if="!hasGiftExchange" class="text-2xl font-bold text-center -mt-20">
             Chưa có lịch sử đổi quà.!
           </div>
           <div class="flex">
             <div v-if="myGiftExchange.length === 0 && hasGiftExchange" class="w-full h-full flex justify-center items-center">
-              <div class="text-lg font-bold text-green-800">
+              <div class="text-2xl font-bold text-green-800">
                 Không có data!
               </div>
             </div>
-            <div class="w-full p-8 grid xl:grid-cols-3 lg:grid-cols-2 gap-16 overflow-y-scroll h-[70vh] scroll-view">
+            <div class="w-full p-6 grid xl:grid-cols-3 lg:grid-cols-2 gap-16 overflow-y-scroll h-[70vh] scroll-view">
               <div v-for="(item, key) in myGiftExchange" :key="key" class="intro-y box card-gift"
                    :class="{'xl:h-[45vh]': myGiftExchange.length <= 3}">
                 <div class="p-5">

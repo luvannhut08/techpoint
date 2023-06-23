@@ -49,7 +49,7 @@ export default {
             await PointsExchange.create(this.$h.convertJsonToFormData(param))
             this.onClose()
             await Swal.fire({
-              title: `<span style="font-weight: normal">Gửi yêu cầu tích điểm thành công</span>`,
+              title: `<span style="font-weight: normal">Gửi yêu cầu tích điểm thành công!</span>`,
               timerProgressBar: true,
               timer: 3000,
               icon: "success",

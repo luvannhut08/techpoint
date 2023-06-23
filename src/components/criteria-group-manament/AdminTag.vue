@@ -58,7 +58,7 @@ export default {
                         await Swal.fire({
                             title: `<span style="font-weight: normal">Bạn đã xoá</span> ${this.admin.name} <span style="font-weight: normal">thành công!</span>`,
                             timerProgressBar: true,
-                            timer: 1500,
+                            timer: 2000,
                             icon: "success",
                             didOpen: () => {
                                 const titleElement = document.querySelector('.swal2-title');
@@ -69,7 +69,7 @@ export default {
                 } catch (e) {
                     await Swal.fire({
                         title: `Có lỗi xảy ra ở đây!!`,
-                        timer: 1500,
+                        timer: 2000,
                         timerProgressBar: true,
                         icon: "error"
                     });

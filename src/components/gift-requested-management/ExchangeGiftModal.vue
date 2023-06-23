@@ -157,7 +157,7 @@ export default {
       if(this.gift.quantity < this.quantity){
         this.onClose()
         await Swal.fire({
-          title: `<span style="font-weight: normal">Rất tiếc<br> Số quà còn lại không đủ</span> <br> <span style="font-weight: normal">Vui lòng đổi tối đa</span> <b class="text-red-400" style="font-weight: normal">${this.gift.quantity}</b> <b>${this.gift.name}</b><span> </span>`,
+          title: `<span style="font-weight: normal">Rất tiếc<br> Số quà còn lại không đủ</span> <br> <span style="font-weight: normal">Vui lòng đổi tối đa</span> <b class="text-red-400" style="font-weight: normal">${this.gift.quantity}</b> <b>${this.gift.name}</b><span> !</span>`,
           timerProgressBar: true,
           icon: "error",
           timer: 3000,
@@ -169,7 +169,7 @@ export default {
       }else if(this.totalOfPoint < this.point) {
         this.onClose()
         await Swal.fire({
-          title: `<span style="font-weight: normal">Rất tiếc, số điểm của bạn không đủ để đổi</span> <b class="text-red-400" style="font-weight: normal">${this.quantity}</b> <b>${this.gift.name}</b><span> </span>`,
+          title: `<span style="font-weight: normal">Rất tiếc, số điểm của bạn không đủ để đổi</span> <b class="text-red-400" style="font-weight: normal">${this.quantity}</b> <b>${this.gift.name}</b><span>! </span>`,
           timerProgressBar: true,
           icon: "error",
           timer: 3000,
@@ -193,7 +193,7 @@ export default {
         this.onClose()
         if(res.status == 200) {
           await Swal.fire({
-            title: `<span style="font-weight: normal">Gửi yêu cầu đổi</span> <b class="text-red-400" style="font-weight: normal">${this.quantity}</b> <b >${this.gift.name}</b><br><span style="font-weight: normal"> thành công</span><span>`,
+            title: `<span style="font-weight: normal">Gửi yêu cầu đổi</span> <b class="text-red-400" style="font-weight: normal">${this.quantity}</b> <b >${this.gift.name}</b><br><span style="font-weight: normal"> thành công!</span><span>`,
             timerProgressBar: true,
             icon: "success",
             timer: 3000,
@@ -205,7 +205,7 @@ export default {
         }
         else {
           await Swal.fire({
-            title: `<span style="font-weight: normal">Có lỗi trong quá trình đổi quà</span>`,
+            title: `<span style="font-weight: normal">Có lỗi trong quá trình đổi quà!</span>`,
             timerProgressBar: true,
             timer: 3000,
             icon: "Error",

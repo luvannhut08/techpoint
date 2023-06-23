@@ -105,6 +105,8 @@
                           </button>
                         </div>
                         <div class="invalid-feedback font-sans font-medium text-center" v-for="(item, index) in errorImages" v-bind:key="index">{{ item }}</div>
+                        <Error :hidden="!errors.img&&!errors.size"
+                        :message="errors.img || errors.size"/>
                       </div>
                     </label>
 
@@ -114,8 +116,7 @@
             </div>
           </div>
         </div>
-        <div v-if="showError" class="text-red-500 mt-2 text-center">Vui lòng điền đầy đủ thông tin vào các
-          trường!
+        <div v-if="showError" v-html="messageError" class="text-red-500 mt-2 text-center">
         </div>
         <div class="flex justify-center mt-7 mb-7">
           <button class="w-24 mr-4 bg-gray-600 hover:bg-gray-500 text-white font-bold py-2 px-4 rounded"
@@ -123,7 +124,7 @@
             Huỷ
           </button>
           <button class=" w-24 bg-orange-800 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded"
-                  @click="updateGift" :disabled="isSaving">
+                  @click="updateGift">
             {{ actionModal == "UPDATE" ? "Cập nhật" : "Lưu" }}
           </button>
         </div>
@@ -151,21 +152,40 @@ export default {
       checkDelete: this.actionModal,
       errorImages: [],
       checkFile: 0,
-      isSaving: false
+      isSaving: false,
+      messageError: ""
     }
   },
   props: ["isOpen", "onClose", "initialGift", "actionModal"],
   methods: {
     async updateGift() {
-      if (this.isSaving) {
-        return
+      this.messageError = ""
+      if (this.gift.name.length > 255) {
+          this.messageError += " Tên món quà không được vượt quá 255 kí tự! <br>" 
       }
-      this.isSaving = true;
+      if (this.gift.description.length > 500) {
+          this.messageError += " Mô tả không được vượt quá 500 kí tự! <br>"
+      }
+      if (this.gift.point < 1) {
+          this.messageError += " Điểm tương ứng không thể ít hơn 1! <br>"
+      }
+      if (this.gift.quantity < 1) {
+          this.messageError += " Số lượng quà không thể ít hơn 1! <br>"
+      }
       this.errors = {}
-      this.showError = false
-      if (!this.gift.name || !this.gift.point || !this.gift.description) {
+      if (!this.gift.name || !this.gift.point || !this.gift.description || !this.gift.quantity) {
+        this.messageError = "Vui lòng nhập tất cả các mục! <br>"
+      }
+      if(/[.,-]/.test(this.gift.point) && /[.,-]/.test(this.gift.quantity)) {
+        this.messageError += "Điểm và số lượng phải là số nguyên dương! <br>"
+      }else if(/[.,-]/.test(this.gift.point)) {
+        this.messageError += "Điểm phải là số nguyên dương! <br>"
+      }else if(/[.,-]/.test(this.gift.quantity)) {
+        this.messageError += "Số lượng phải là số nguyên dương! <br>"
+      }
+      if (this.messageError) {
         this.showError = true
-        return
+        return this.messageError;
       }
       if (this.actionModal == "CREATE") {
         this.validateImage()
@@ -173,6 +193,10 @@ export default {
           if(this.errorImages.length > 0) {
             return
           }
+          if (this.isSaving) {
+            return
+          }
+          this.isSaving = true;
           const res = await GiftsApi.createNewGift((this.$h.convertJsonToFormData(this.gift)))
           if (res.status === 200) {
             this.closeModal()
@@ -205,7 +229,7 @@ export default {
             await Swal.fire({
               title: `<span style="font-weight: normal">Cập nhật quà tặng </span> <b>${this.gift.name}</b> <span style="font-weight: normal">thành công!</span>`,
               timerProgressBar: true,
-              timer: 5000,
+              timer: 2000,
               icon: "success",
               didOpen: () => {
                 const titleElement = document.querySelector('.swal2-title');
@@ -258,7 +282,7 @@ export default {
         return
       }
       if (!allowedTypes.includes(file.type)) {
-        this.errorImages.push('Loại tệp không hợp lệ. Chỉ cho phép jpeg, png và jpg.')
+        this.errorImages.push('Vui lòng tải lên ảnh có định dạng jpeg, png, jpg')
         return
       }
       if (file.size > 500000) {
@@ -271,6 +295,13 @@ export default {
     tmpImgUrl(crc, oldSrc) {
       URL.revokeObjectURL(oldSrc)
     },
+    isOpen(){
+      this.errorImages = []
+      this.showError = false;
+      if (!val) {
+        this.reset();
+      }
+    },
     initialGift: {
       deep: true,
       handler(newGift) {
@@ -281,6 +312,11 @@ export default {
     actionModal(newValue, oldValue) {
       this.errorImages = []
       this.checkDelete = newValue
+    },
+    isOpen() {
+      this.messageError = "",
+      this.showError = false,
+      this.errorImages = []
     }
   }
 }

@@ -29,7 +29,7 @@
                                                   @change-selection="setSelectedAdmins"
                             />
                         </div>
-                        <ErrorMessage name="" class="text-red-500 font-bold block text-center text-lg">{{ errorMessage[0] }}</ErrorMessage>
+                        <ErrorMessage name="" class="text-red-500 block text-center">{{ errorMessage[0] }}</ErrorMessage>
                     </div>
                 </transition>
                 <div class="flex justify-center mt-4">
@@ -80,7 +80,7 @@ export default {
         },
         async addNewAdmins() {
             if (this.selectedAdmins.length === 0) {
-                this.errorMessage.push('Vui lòng chọn ít nhất 1 người')
+                this.errorMessage.push('Vui lòng chọn ít nhất 1 người!')
                 return
             }
             const res = await CriteriaGroupsApi.addAdmins(this.activeGroup.id, {adminIds: this.selectedAdmins})
@@ -90,7 +90,7 @@ export default {
                     title: '<span style="font-weight: normal; line-height: 35px">Thêm người đánh giá tiêu chí <br> thành công!</span>',
                     timerProgressBar: true,
                     icon: "success",
-                    timer: 1500
+                    timer: 2000
                 })
                 this.$store.dispatch("criteriaGroup/fetchCriteriaGroupList")
                 this.resetSelectedAdmins()

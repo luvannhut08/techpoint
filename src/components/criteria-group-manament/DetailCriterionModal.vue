@@ -41,7 +41,7 @@
                             <div class="mt-4 mx-auto ml-52">
                                 <div class="flex items-end">
                                     <label
-                                        class="text-lg mr-4 leading-6 font-medium text-orange-700 w-1/3"
+                                        class="text-lg mr-4 leading-6 font-medium text-orange-700 w-2/5"
                                         for="criterion-name"
                                     >
                                         Tên tiêu chí
@@ -56,7 +56,7 @@
                                 </div>
                                 <div class="flex mt-4 items-end">
                                     <label
-                                        class="text-lg mr-4 leading-6 font-medium text-orange-700 w-1/3"
+                                        class="text-lg mr-4 leading-6 font-medium text-orange-700 w-2/5"
                                         for="criterion-point"
                                     >
                                         Số điểm tương ứng
@@ -141,8 +141,7 @@
                         </div>
                     </div>
                 </div>
-                <div v-if="showError" class="text-red-500 mt-5 text-center">
-                    Vui lòng nhập thông tin đầy đủ tại tất cả các mục!
+                <div v-if="showError" v-html="messageError" class="text-red-500 mt-5 text-center">
                 </div>
                 <div class="flex justify-center mt-7 mb-7">
                     <button
@@ -194,28 +193,39 @@ export default {
             errorImages: [],
             avatarDefault: AvatarDefault,
             checkDelete: this.action,
-            checkFile: 0
+            checkFile: 0,
+            messageError : ""
         };
     },
     props: ["isOpen", "onClose", "initialCriterion", "action", "activeGroup"],
     methods: {
         async saveCriterion() {
-            if (this.isCreatingCriterion) {
-                 return
-             }
-             this.isCreatingCriterion = true;
+            this.messageError = ""
+            if (this.criterion.name.length > 255) {
+                this.messageError += " Tên tiêu chí không được vượt quá 255 kí tự! <br>" 
+            }
+            if (this.criterion.description.length > 500) {
+                this.messageError += " Mô tả không được vượt quá 500 kí tự! <br>"
+            }
+            if (this.criterion.point < 1) {
+                this.messageError += " Điểm tương ứng không thể ít hơn 1! <br>"
+            }
             this.errors = {};
-            this.showError = false;
+            if(/[.,-]/.test(this.criterion.point)) {
+                this.messageError = "Điểm phải là số nguyên dương! <br>"
+            }
 
             if (
                 !this.criterion.name ||
                 !this.criterion.point ||
                 !this.criterion.description
             ) {
-                this.showError = true;
-                return;
+                this.messageError = "Vui lòng nhập tất cả các mục! <br>";
             }
-
+            if (this.messageError) {
+                this.showError = true
+                return this.messageError;
+            }
             try {
                 const data = this.$h.convertJsonToFormData(this.criterion);
                 let res;
@@ -225,6 +235,10 @@ export default {
                 if(this.errorImages.length > 0) {
                     return
                 }
+                if (this.isCreatingCriterion) {
+                    return
+                }
+                this.isCreatingCriterion = true;
                 if (this.action === "update") {
                     res = await CriterionApi.updateCriterion(this.criterion.id, data);
                 } else if (this.action === "create") {
@@ -244,7 +258,7 @@ export default {
                     await Swal.fire({
                         title: successMessage,
                         timerProgressBar: true,
-                        timer: 1500,
+                        timer: 2000,
                         icon: "success",
                         didOpen: () => {
                             const titleElement = document.querySelector(".swal2-title");
@@ -260,7 +274,6 @@ export default {
             }
         },
         onChooseFile(e) {
-            this.errors = {...this.errors, size: "", img: ""}
             let files = e.target.files || e.dataTransfer.files
             this.criterion.img = files[0]
             this.tmpImgUrl = URL.createObjectURL(files[0])
@@ -291,10 +304,10 @@ export default {
         },
         deleteImg() {
             this.checkDelete = "create"
-            this.errors = {...this.errors, size: "", img: ""}
             this.criterion.img = this.avatarDefault
             this.tmpImgUrl = this.avatarDefault
             this.checkFile = 1
+            this.errorImages = []
         },
         validateImage() {
             let file = this.$refs.uploadImage.files[0]
@@ -305,7 +318,7 @@ export default {
                 return
             }
             if (!allowedTypes.includes(file.type)) {
-                this.errorImages.push('Loại tệp không hợp lệ. Chỉ cho phép jpeg, png và jpg.')
+                this.errorImages.push('Vui lòng tải lên ảnh có định dạng jpeg, png, jpg.')
                 return
             }
             if (file.size > 500000) {
@@ -316,9 +329,13 @@ export default {
     },
     watch: {
         isOpen(val) {
+            this.errorImages = []
+            this.showError = false;
             if (!val) {
                 this.reset();
             }
+            this.showError = false,
+            this.messageError = ""
         },
         tmpImgUrl(crc, oldSrc) {
             URL.revokeObjectURL(oldSrc);

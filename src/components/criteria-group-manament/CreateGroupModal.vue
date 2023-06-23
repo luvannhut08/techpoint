@@ -52,8 +52,7 @@
                         </div>
                     </div>
                 </transition>
-                <div v-if="showError" class="text-red-500 mt-2 text-center">
-                    Vui lòng nhập thông tin đầy đủ tại các mục!
+                <div v-if="showError" v-html="messageError" class="text-red-500 mt-2 text-center">
                 </div>
                 <div class="flex justify-center mt-4 mb-4">
                     <button
@@ -89,8 +88,8 @@ export default {
         return {
             groupName: "",
             selectedAdmins: [],
-            showError: false
-
+            showError: false,
+            messageError : ""
         };
     },
     computed: {
@@ -108,11 +107,16 @@ export default {
             this.onClose();
         },
         async createGroup() {
-            this.showError = false;
-
-            if (!this.groupName || !this.selectedAdmins.length) {
-                this.showError = true;
-                return;
+            this.messageError = ""
+            if (this.groupName.length > 255) {
+                this.messageError = " Tên nhóm tiêu chí không được vượt quá 255 kí tự! <br>"
+            }
+            if (!this.groupName) {
+                this.messageError = " Tên nhóm tiêu chí không được để trống! <br>";
+            }
+            if (this.messageError) {
+                this.showError = true
+                return this.messageError
             }
             try {
                 const res = await CriteriaGroupsApi.create({
@@ -126,7 +130,7 @@ export default {
                     await Swal.fire({
                         title: `<span style="font-weight: normal">Thêm nhóm tiêu chí</span> <b>${this.groupName}</b> <span style="font-weight: normal">thành công!</span>`,
                         timerProgressBar: true,
-                        timer: 1500,
+                        timer: 2000,
                         icon: "success",
                         didOpen: () => {
                             const titleElement = document.querySelector(".swal2-title");
@@ -140,13 +144,21 @@ export default {
                 this.closeModalHandler();
                 await Swal.fire({
                     title: "Có lỗi xảy ra!!",
-                    timer: 1500,
+                    timer: 2000,
                     timerProgressBar: true,
                     icon: "error",
                 });
             }
         },
     },
+    watch: {
+        isOpen() {
+            this.showError = false,
+            this.groupName = "",
+            this.messageError = "",
+            this.selectedAdmins = []
+        }
+    }
 };
 </script>
 

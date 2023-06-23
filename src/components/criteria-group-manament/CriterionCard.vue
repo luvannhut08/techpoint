@@ -54,7 +54,7 @@ export default {
         },
         async onDelete() {
             const result = await Swal.fire({
-                title: `<span style="font-weight: normal; font-size:25px ;line-height: 2">Xác nhận xoá tiêu chí</span> <b style="font-size:25px ">${this.criterion.name}?</b>`,
+                title: `<span style="font-weight: normal; font-size:25px ;line-height: 2">Xác nhận xoá tiêu chí</span> <b style="font-size:25px ">${this.criterion.name}</b><span style="font-weight: normal; font-size:25px ;line-height: 2">?</span>`,
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#9a3412',
@@ -71,7 +71,7 @@ export default {
                         await Swal.fire({
                                 title: `<span style="font-weight: normal">Bạn đã xoá</span> <b>${this.criterion.name}</b> <span style="font-weight: normal">thành công!</span>`,
                                 timerProgressBar: true,
-                                timer: 1500,
+                                timer: 2000,
                                 icon: "success",
                                 didOpen: () => {
                                     const titleElement = document.querySelector('.swal2-title');

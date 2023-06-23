@@ -78,7 +78,7 @@ export default {
         },
         async onDelete() {
             const result = await Swal.fire({
-                title:`<span style="font-weight: normal">Xác nhận xóa</span> <b>${this.gift.name}?</b>`,
+                title:`<span style="font-weight: normal">Xác nhận xóa</span> <b>${this.gift.name}</b><span style="font-weight: normal; font-size:25px ;line-height: 2">?</span>`,
                 text: "Hành động này không thể hoàn tác!",
                 icon: 'warning',
                 showCancelButton: true,
@@ -103,7 +103,7 @@ export default {
                                 title: `<span style="font-weight: normal">Bạn đã xoá</span> <b>${this.gift.name}</b> <span style="font-weight: normal">thành công!</span>`,
                                 timerProgressBar: true,
                                 icon: "success",
-                                timer: 1500,
+                                timer: 2000,
                                 didOpen: () => {
                                     const titleElement = document.querySelector('.swal2-title');
                                     titleElement.style.lineHeight = '1';
