@@ -116,7 +116,7 @@ export default {
         async onSubmit(values) {
             const isSuccess = await this.login(values)
             if (isSuccess) {
-                this.$router.push('/')
+                this.$router.go('-1')
             } else {
                 this.showError = true
             }
