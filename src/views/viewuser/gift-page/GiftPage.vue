@@ -24,7 +24,7 @@
     </div>
     <div class="flex h-full">
       <div v-if="listGift.length === 0" class="w-full h-full flex justify-center items-center mt-40">
-        <div class="text-lg font-bold">Không có dữ liệu trùng khớp!</div>
+        <div class="text-lg font-bold h-[70vh]">Không có dữ liệu trùng khớp!</div>
       </div>
       <GiftBoard v-else :gift-list="listGift" @fetch-data="fetchData"/>
     </div>

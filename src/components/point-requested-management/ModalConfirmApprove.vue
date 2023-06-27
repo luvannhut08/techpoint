@@ -67,7 +67,7 @@ export default {
           this.$store.dispatch('pointsExchange/fetchPointsRequestedList')
           if (params.status === 1) {
             await Swal.fire({
-              title: `<span> "Phê duyệt yêu cầu tích điểm thành công!"</span>`,
+              title: `<span style="font-weight: normal; line-height: 35px">Phê duyệt yêu cầu tích điểm <br> thành công!</span>`,
               timerProgressBar: true,
               icon: "success",
               timer: 3000,
@@ -78,7 +78,7 @@ export default {
             })
           } else {
             await Swal.fire({
-              title: `<span style="font-weight: normal">Từ chối yêu cầu tích điểm <br> thành công!</span>`,
+              title: `<span style="font-weight: normal; line-height: 35px">Từ chối yêu cầu tích điểm <br> thành công!</span>`,
               timerProgressBar: true,
               icon: "success",
               timer: 3000,

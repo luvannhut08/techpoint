@@ -4,8 +4,8 @@
     src="/src/assets/images/point.gif"/>
   </div>
   <FilterByScore class="-mt-3"/>
-  <div class="mt-10">
-    <div class="relative">
+  <div class="scroll-view mt-5">
+    <div class="relative mt-10 mb-16">
       <div class="flex justify-center mt-4 absolute previous-next gap-52 z-10">
         <button :disabled="currentPagePrimary === 1"
                 class="px-3 py-1 bg-blue-500 hover:bg-blue-950 text-white rounded-md mr-2 transform -translate-x-1/2"
@@ -33,7 +33,7 @@
         </Block>
       </div>
     </div>
-    <div class="relative">
+    <div class="relative mb-16">
       <div class="flex justify-center mt-4 absolute previous-next gap-52 z-10">
         <button :disabled="currentPageSecondary === 1"
                 class="px-3 py-1 bg-blue-500 hover:bg-blue-950 text-white rounded-md mr-2 transform -translate-x-1/2"
@@ -260,5 +260,15 @@ export default {
   position: absolute;
   bottom: -5%;
   left: 40px
+}
+
+.scroll-view  {
+  overflow-y: scroll !important;
+  overflow-x: hidden;
+  height: 75vh;
+}
+
+.relative {
+  direction:ltr;
 }
 </style>

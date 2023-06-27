@@ -42,6 +42,7 @@ export default {
   name: "LandingPage",
   components: {LeaderBoard, SelfProfileCard},
   created() {
+    document.body.classList.remove("error-page")
     this.$store.dispatch("point/fetchSelfPointInfo")
     this.$store.dispatch("point/fetchTop10")
   },

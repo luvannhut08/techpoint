@@ -1,5 +1,5 @@
 <template>
-  <div v-if="numbers.length > 0" class="h-52 rounded-lg p-4 mb-12 border-2 border-dashed border-primary bg-white">
+  <div v-if="numbers.length > 0" class="h-52 rounded-lg p-4 border-2 border-dashed border-primary bg-white">
     <slot></slot>
     <h2 class="absolute rounded-xl text-xl font-bold mb-4 -mt-11 bg-blue-200 ml-20 cursor-pointer transition-transform transform hover:scale-110 px-4 py-2">{{ title }}</h2>
     <div class="grid grid-cols-5 gap-2 text-white mt-2">
