@@ -115,8 +115,13 @@ export default {
         },
         async onSubmit(values) {
             const isSuccess = await this.login(values)
+            const { redirect } = this.$route.query
             if (isSuccess) {
-                this.$router.go('-1')
+                if (redirect) {
+                    this.$router.push(redirect)
+                }else {
+                    this.$router.go('-1')
+                }
             } else {
                 this.showError = true
             }

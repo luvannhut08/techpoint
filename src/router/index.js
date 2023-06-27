@@ -122,6 +122,7 @@ const router = createRouter({
     }
 })
 
+
 router.beforeEach(async (to, from, next) => {
     let {token, user} = store.state.auth
 
@@ -134,6 +135,9 @@ router.beforeEach(async (to, from, next) => {
     if (!isAuthenticated && (to.name === 'point-user' || to.name === 'login'|| to.name === 'gift-user' || to.name === 'user-criterion-page' || to.name === 'gift-history')) next()
     else if (isAuthenticated && to.name === 'login') next({name: 'point-user'})
     else if (isAuthenticated) next()
+    else if (!isAuthenticated && to.name === 'gifts-requested') {
+        next({ name: 'login', query: { redirect: '/gifts-requested' }})
+    }
     else next({name: 'login'})
 })
 export default router
